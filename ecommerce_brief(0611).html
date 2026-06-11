@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eCommerce — Course Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #0C447C;
+    --ocean:      #185FA5;
+    --sky:        #B5D4F4;
+    --teal:       #1D9E75;
+    --teal-light: #D0F0E5;
+    --amber:      #FAC775;
+    --amber-dark: #7A4F00;
+    --near-black: #1A1A1A;
+    --gray:       #6B7280;
+    --soft-white: #F5F7FA;
+    --white:      #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--soft-white);
+    color: var(--near-black);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ───────────────────────────────────────────────────── */
+  .hero {
+    background: var(--navy);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(29,158,117,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(21,95,165,0.22) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-title span {
+    color: var(--amber);
+    font-style: italic;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--sky);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .tag {
+    background: rgba(181,212,244,0.12);
+    border: 1px solid rgba(181,212,244,0.25);
+    color: var(--sky);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--gray);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+  }
+
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--teal);
+    border-bottom: 2px solid var(--teal);
+    transform: rotate(45deg);
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  /* ── NAV TABS ───────────────────────────────────────────────── */
+  .nav-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    border-bottom: 2px solid var(--teal);
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-sticky::-webkit-scrollbar { display: none; }
+
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    min-width: max-content;
+  }
+
+  .nav-tab {
+    padding: 0.9rem 1.6rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sky);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .nav-tab:hover { color: var(--white); border-bottom-color: var(--teal-light); }
+  .nav-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+  /* ── SECTIONS ───────────────────────────────────────────────── */
+  .section {
+    display: none;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .section.active {
+    display: block;
+    opacity: 1;
+    transform: none;
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  /* ── SECTION HEADERS ────────────────────────────────────────── */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-lead {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.8;
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+    border-left: 3px solid var(--teal);
+    padding-left: 1.2rem;
+  }
+
+  /* ── OUTCOMES GRID ──────────────────────────────────────────── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .outcome-card {
+    background: var(--white);
+    border: 1px solid rgba(12,68,124,0.1);
+    border-radius: 12px;
+    padding: 1.4rem 1.4rem 1.4rem 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: transform 0.2s, box-shadow 0.2s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .outcome-card.visible {
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .outcome-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(12,68,124,0.1);
+  }
+
+  .outcome-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--teal-light);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 2rem;
+  }
+
+  .outcome-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--near-black);
+    font-weight: 400;
+  }
+
+  /* ── ASSESSMENT ─────────────────────────────────────────────── */
+  .weight-display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .weight-card {
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid rgba(12,68,124,0.1);
+    padding: 1.6rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .weight-card:hover { transform: translateY(-2px); }
+
+  .weight-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
+  }
+
+  .weight-card.counted::after { transform: scaleX(1); }
+
+  .weight-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.4rem;
+  }
+
+  .weight-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .weight-bar-wrap {
+    background: var(--soft-white);
+    border-radius: 100px;
+    height: 8px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+
+  .weight-bar {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--teal), var(--ocean));
+    width: 0;
+    transition: width 1s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .weight-bar.final { background: linear-gradient(90deg, var(--amber), #e8a030); }
+
+  .weight-pct {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .weight-pct span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--gray);
+    font-weight: 400;
+  }
+
+  /* ── ACCORDION ──────────────────────────────────────────────── */
+  .accordion { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .acc-item {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid rgba(12,68,124,0.1);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .acc-item:hover { box-shadow: 0 4px 16px rgba(12,68,124,0.08); }
+
+  .acc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.4rem;
+    cursor: pointer;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  .acc-left { display: flex; align-items: center; gap: 1rem; }
+
+  .acc-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    background: var(--teal-light);
+    color: var(--teal);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .acc-badge.exam { background: rgba(12,68,124,0.1); color: var(--navy); }
+  .acc-badge.final { background: var(--amber); color: var(--amber-dark); }
+
+  .acc-title {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .acc-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--soft-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.3s;
+    color: var(--gray);
+    font-size: 1rem;
+  }
+
+  .acc-item.open .acc-arrow {
+    background: var(--teal);
+    color: var(--white);
+    transform: rotate(180deg);
+  }
+
+  .acc-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .acc-body-inner {
+    padding: 0 1.4rem 1.4rem;
+    border-top: 1px solid var(--soft-white);
+    padding-top: 1.2rem;
+  }
+
+  .acc-body-inner p {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--near-black);
+    margin-bottom: 0.8rem;
+  }
+
+  .acc-body-inner ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .acc-body-inner li {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--near-black);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .acc-body-inner li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .prize-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--amber);
+    color: var(--amber-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    margin-top: 0.8rem;
+  }
+
+  /* ── WEEKLY SCHEDULE ────────────────────────────────────────── */
+  .phase-block { margin-bottom: 3rem; }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .phase-pip {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .phase-name {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .phase-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(12,68,124,0.12);
+  }
+
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .week-card {
+    background: var(--white);
+    border-radius: 10px;
+    border: 1px solid rgba(12,68,124,0.08);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .week-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 4px 14px rgba(29,158,117,0.12);
+    transform: translateY(-2px);
+  }
+
+  .week-card.has-assessment {
+    border-left: 3px solid var(--amber);
+  }
+
+  .week-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.3rem;
+  }
+
+  .week-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 0.4rem;
+  }
+
+  .week-desc {
+    font-size: 0.78rem;
+    color: var(--gray);
+    line-height: 1.5;
+    display: none;
+  }
+
+  .week-card:hover .week-desc { display: block; }
+  .week-card:hover .week-title { color: var(--teal); }
+
+  .week-assess-dot {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* ── FORMAT SECTION ─────────────────────────────────────────── */
+  .format-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .format-card {
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid rgba(12,68,124,0.1);
+    padding: 1.6rem 1.4rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .format-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(12,68,124,0.1);
+  }
+
+  .format-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .format-card-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+
+  .format-card-desc {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  .ai-note {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 100%);
+    border-radius: 14px;
+    padding: 2rem;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-note::before {
+    content: 'AI';
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Serif Display', serif;
+    font-size: 6rem;
+    color: rgba(181,212,244,0.07);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .ai-note-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.6rem;
+  }
+
+  .ai-note-text {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--sky);
+    max-width: 600px;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────────────────── */
+  .page-footer {
+    background: var(--navy);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--gray);
+    letter-spacing: 0.06em;
+  }
+
+  .page-footer span { color: var(--teal); }
+
+  /* ── ANIMATIONS ─────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(5px); }
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .weight-display { grid-template-columns: 1fr; }
+    .hero-title { font-size: 3rem; }
+    .nav-tab { padding: 0.8rem 1rem; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <p class="hero-eyebrow">Year 3 · Bachelor in International Management</p>
+  <h1 class="hero-title">e<span>Commerce</span></h1>
+  <p class="hero-subtitle">Strategy, Design, Marketing &amp; the Technology Behind Every Successful Online Store</p>
+  <div class="hero-tags">
+    <span class="tag">18 Weeks</span>
+    <span class="tag">3 hrs / Week</span>
+    <span class="tag">No Coding Required</span>
+    <span class="tag">Real Client Brief</span>
+    <span class="tag">Live Store Project</span>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    Explore
+  </div>
+</section>
+
+<!-- ── STICKY NAV ────────────────────────────────────────────────────── -->
+<nav class="nav-sticky">
+  <ul class="nav-tabs">
+    <li class="nav-tab active" data-tab="overview">Overview</li>
+    <li class="nav-tab" data-tab="outcomes">What You'll Learn</li>
+    <li class="nav-tab" data-tab="assessment">Assessment</li>
+    <li class="nav-tab" data-tab="schedule">Schedule</li>
+    <li class="nav-tab" data-tab="format">Course Format</li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TAB: OVERVIEW -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section class="section active" id="tab-overview">
+  <div class="section-inner">
+    <p class="section-label">About This Course</p>
+    <h2 class="section-title">Think like a<br>digital entrepreneur.</h2>
+    <p class="section-lead">
+      This course teaches you the decisions that determine whether an eCommerce venture succeeds or fails — who to sell to, what to say, how to reach them, and how to design an experience people trust.
+    </p>
+
+    <div class="format-grid">
+      <div class="format-card">
+        <div class="format-icon">🇹🇼</div>
+        <div class="format-card-title">Taiwan-First</div>
+        <div class="format-card-desc">Real Taiwanese companies, platforms, and consumer behaviors at the core of every lesson.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">🏪</div>
+        <div class="format-card-title">Real Client Brief</div>
+        <div class="format-card-desc">Design a marketing plan for a real Taiwanese entrepreneur — with a cash prize for the winning group.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">💡</div>
+        <div class="format-card-title">No Coding Required</div>
+        <div class="format-card-desc">This is a strategy and business course. No programming skills needed — just sharp thinking.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">🌐</div>
+        <div class="format-card-title">Live Store Project</div>
+        <div class="format-card-desc">Build and present a real, publicly accessible online store as your final project.</div>
+      </div>
+    </div>
+
+    <div class="ai-note">
+      <p class="ai-note-label">On AI Tools</p>
+      <p class="ai-note-text">You are encouraged to use AI tools — including Google Gemini — throughout this course. However, every assessment is designed so that generic AI-generated answers cannot substitute for real strategic thinking about specific Taiwanese markets, companies, and customers. AI is your thinking partner, not your ghostwriter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TAB: OUTCOMES -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tab-outcomes">
+  <div class="section-inner">
+    <p class="section-label">Learning Outcomes</p>
+    <h2 class="section-title">What you'll be able<br>to do by Week 18.</h2>
+    <p class="section-lead">Seven concrete skills — tested through real work, not memory.</p>
+
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-num">01</div>
+        <div class="outcome-text">Explain how Taiwan's eCommerce ecosystem works and compare it with regional and global markets.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">02</div>
+        <div class="outcome-text">Choose the right business model and platform for a given product type and seller profile.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">03</div>
+        <div class="outcome-text">Identify what drives Taiwanese consumers to buy online — and what stops them from completing a purchase.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">04</div>
+        <div class="outcome-text">Design a digital storefront with strong UX, a clear brand identity, and effective marketing copy.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">05</div>
+        <div class="outcome-text">Build a multi-channel digital marketing plan tailored to a specific target customer in Taiwan.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">06</div>
+        <div class="outcome-text">Evaluate the backend systems — payments, logistics, inventory — that make an online store actually work.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">07</div>
+        <div class="outcome-text">Produce and present a strategically grounded, professionally designed online storefront concept.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TAB: ASSESSMENT -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tab-assessment">
+  <div class="section-inner">
+    <p class="section-label">How You're Graded</p>
+    <h2 class="section-title">Four components.<br>Strategy rewarded.</h2>
+    <p class="section-lead">Strategy and analytical depth outweigh visual polish at every level. A well-reasoned argument beats a beautiful slide deck.</p>
+
+    <!-- Weight cards -->
+    <div class="weight-display">
+      <div class="weight-card" data-pct="30">
+        <div class="weight-label">Component 1</div>
+        <div class="weight-name">Weekly Quizzes — 6 Unannounced</div>
+        <div class="weight-bar-wrap"><div class="weight-bar" style="width:0%"></div></div>
+        <div class="weight-pct">0<span>%</span></div>
+      </div>
+      <div class="weight-card" data-pct="20">
+        <div class="weight-label">Component 2</div>
+        <div class="weight-name">Mid-Term Exam</div>
+        <div class="weight-bar-wrap"><div class="weight-bar" style="width:0%"></div></div>
+        <div class="weight-pct">0<span>%</span></div>
+      </div>
+      <div class="weight-card" data-pct="20">
+        <div class="weight-label">Component 3</div>
+        <div class="weight-name">GA1 — Marketing Channel Plan</div>
+        <div class="weight-bar-wrap"><div class="weight-bar" style="width:0%"></div></div>
+        <div class="weight-pct">0<span>%</span></div>
+      </div>
+      <div class="weight-card" data-pct="30">
+        <div class="weight-label">Component 4 — Final Project</div>
+        <div class="weight-name">Dream Store — Site + Roadmap + Presentation</div>
+        <div class="weight-bar-wrap"><div class="weight-bar final" style="width:0%"></div></div>
+        <div class="weight-pct">0<span>%</span></div>
+      </div>
+    </div>
+
+    <!-- Accordion details -->
+    <div class="accordion">
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-left">
+            <span class="acc-badge">Individual · Unannounced</span>
+            <span class="acc-title">Weekly Quizzes — 30% (6 × 5%)</span>
+          </div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p>Six short quizzes administered at the instructor's discretion throughout the semester, without prior notice. Any class session may begin with a quiz. Be prepared every week.</p>
+            <ul>
+              <li>Format: 3 multiple-choice questions + 2 fill-in-the-blanks</li>
+              <li>Duration: 15 minutes at the start of class</li>
+              <li>Coverage: material up to and including the previous class</li>
+              <li>Quizzes are unannounced — specific quiz dates are not disclosed in advance</li>
+              <li>No make-up quizzes — absent students score zero for that quiz</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-left">
+            <span class="acc-badge exam">Individual · Week 9</span>
+            <span class="acc-title">Mid-Term Exam — 20%</span>
+          </div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p>A 24-hour take-home exam distributed at the end of Week 9's class. Analytical in nature — no multiple choice.</p>
+            <ul>
+              <li>Format: 2 mini case studies requiring analytical responses</li>
+              <li>Covers Weeks 1–8</li>
+              <li>Collaboration with classmates is permitted</li>
+              <li>Written responses must be your own — identical answers between students will be treated as an integrity issue</li>
+              <li>Submitted via TRONCLASS within 24 hours of distribution</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-left">
+            <span class="acc-badge">Groups · Week 14</span>
+            <span class="acc-title">GA1 — Marketing Channel Plan — 20%</span>
+          </div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p>Design a 2-channel marketing plan for a real Taiwanese food entrepreneur's product. The client will be present on presentation day to evaluate your work and ask questions.</p>
+            <ul>
+              <li>Groups of 2–3 students</li>
+              <li>Class is split into two product groups: Frozen Taiwanese Prawns or 一口烏魚子 (Bite-sized Mullet Roe)</li>
+              <li>All teams within each group work from the same real client brief</li>
+              <li>Deliverables: detailed 2-channel plan + a professional pitch memo addressed to the client</li>
+              <li>Budget constraint: NT$3,000/month maximum for paid marketing</li>
+            </ul>
+            <div class="prize-flag">🏆 Cash prize of at least NT$1,000 for the winning group</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div class="acc-header">
+          <div class="acc-left">
+            <span class="acc-badge final">Pairs · Weeks 17–18</span>
+            <span class="acc-title">Dream Store Final Project — 30%</span>
+          </div>
+          <div class="acc-arrow">▾</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <p>The centrepiece of the course. With a partner, you will design a Dream Online Store — a real, publicly accessible storefront built on Google Sites, backed by a Business & Tech Roadmap document explaining every strategic decision you made.</p>
+            <ul>
+              <li><strong>The Store (35%):</strong> 6 required pages — homepage, product catalogue, individual product page, brand story, promotions, and contact</li>
+              <li><strong>The Roadmap (65%):</strong> Strategy · Design Rationale · Marketing Plan · The Black Box (payment, logistics, inventory systems)</li>
+              <li>Graded across four pillars: Strategy 40 pts · Design 20 pts · Marketing 30 pts · Black Box 10 pts</li>
+              <li>Presented live in Weeks 17–18 with instructor Q&A</li>
+              <li>No coding required — store is built using Google Sites and embedded tools</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TAB: SCHEDULE -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tab-schedule">
+  <div class="section-inner">
+    <p class="section-label">18-Week Journey</p>
+    <h2 class="section-title">From consumer<br>to entrepreneur.</h2>
+    <p class="section-lead">Three phases — each building directly on the last. Hover over any week to see what's covered.</p>
+
+    <!-- Phase 1 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-pip" style="background:var(--teal)"></div>
+        <span class="phase-name" style="color:var(--teal)">Phase 1 — Foundations</span>
+        <div class="phase-line"></div>
+        <span class="phase-name" style="color:var(--gray)">Weeks 1–8</span>
+      </div>
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="week-num">Week 1</div>
+          <div class="week-title">The eCommerce Ecosystem</div>
+          <div class="week-desc">Taiwan's platforms vs. global giants. Why most online stores fail in Year 1.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 2</div>
+          <div class="week-title">Business Models & Revenue</div>
+          <div class="week-desc">B2C, D2C, marketplace, subscription, dropshipping.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 3</div>
+          <div class="week-title">The Digital Consumer</div>
+          <div class="week-desc">How Taiwanese consumers shop online. LINE, 7-11 pickup, live-stream commerce.</div>
+        </div>
+        <div class="week-card has-assessment">
+          <div class="week-assess-dot"></div>
+          <div class="week-num">Week 4</div>
+          <div class="week-title">Segmentation & Targeting</div>
+          <div class="week-desc">Why "targeting everyone" fails. In-class Business Model Canvas activity.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 5</div>
+          <div class="week-title">Consumer Psychology</div>
+          <div class="week-desc">Social proof, scarcity, anchoring, bundle logic. The psychology behind every purchase.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 6</div>
+          <div class="week-title">Brand Identity & Storytelling</div>
+          <div class="week-desc">What a brand really is. Why origin stories work in Taiwan.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 7</div>
+          <div class="week-title">UX & Store Design</div>
+          <div class="week-desc">The 5-second test. Visual hierarchy, CTAs, mobile-first. Live site evaluation activity.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 8</div>
+          <div class="week-title">Marketing + The Black Box</div>
+          <div class="week-desc">LINE, KOL, Shopee ads. ECPay, 黑貓, 7-11 取貨.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 1 Mid-term note -->
+    <div style="background:var(--navy);border-radius:10px;padding:1rem 1.4rem;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;">
+      <span style="font-size:1.4rem">📝</span>
+      <div>
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);margin-bottom:0.2rem">Week 9 — Mid-Term Exam</div>
+        <div style="font-size:0.85rem;color:var(--sky)">Open-book · 2 hours · Covers Weeks 1–8 · No electronic devices</div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-pip" style="background:var(--ocean)"></div>
+        <span class="phase-name" style="color:var(--ocean)">Phase 2 — Application & Build</span>
+        <div class="phase-line"></div>
+        <span class="phase-name" style="color:var(--gray)">Weeks 10–16</span>
+      </div>
+      <div class="weeks-grid">
+        <div class="week-card">
+          <div class="week-num">Week 10</div>
+          <div class="week-title">Product Strategy & Positioning</div>
+          <div class="week-desc">Features vs. benefits. Cross-selling. How to read a competitor's strategy.</div>
+        </div>
+        <div class="week-card has-assessment">
+          <div class="week-assess-dot"></div>
+          <div class="week-num">Week 11</div>
+          <div class="week-title">Writing for eCommerce</div>
+          <div class="week-desc">Headlines, CTAs, product copy. The AEO insight. GA1 released — real client introduced.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 12</div>
+          <div class="week-title">Campaign Design & Promotions</div>
+          <div class="week-desc">雙11, 618, CNY. Referral mechanics, loyalty programs, limited-time offers.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 13</div>
+          <div class="week-title">Google Sites Workshop I</div>
+          <div class="week-desc">Build homepage and product catalogue. Canva embeds, Google Forms.</div>
+        </div>
+        <div class="week-card has-assessment">
+          <div class="week-assess-dot"></div>
+          <div class="week-num">Week 14</div>
+          <div class="week-title">Workshop II + GA1 Presentations</div>
+          <div class="week-desc">Complete your store. Peer critique. GA1 groups pitch live to the real client.</div>
+        </div>
+        <div class="week-card has-assessment">
+          <div class="week-assess-dot"></div>
+          <div class="week-num">Week 15</div>
+          <div class="week-title">Analytics & KPIs</div>
+          <div class="week-desc">What to measure and why. First-party data. GA1 winner announced.</div>
+        </div>
+        <div class="week-card">
+          <div class="week-num">Week 16</div>
+          <div class="week-title">Roadmap Writing Workshop</div>
+          <div class="week-desc">Dedicated Roadmap time. Instructor office hours with every pair.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-pip" style="background:var(--navy)"></div>
+        <span class="phase-name" style="color:var(--navy)">Phase 3 — Polish & Present</span>
+        <div class="phase-line"></div>
+        <span class="phase-name" style="color:var(--gray)">Weeks 17–18</span>
+      </div>
+      <div class="weeks-grid">
+        <div class="week-card has-assessment">
+          <div class="week-assess-dot"></div>
+          <div class="week-num">Week 17</div>
+          <div class="week-title">AI-Persona Test + First Presentations</div>
+          <div class="week-desc">Test your site with Gemini. Publication checklist. First pairs present.</div>
+        </div>
+        <div class="week-card has-assessment">
+          <div class="week-assess-dot"></div>
+          <div class="week-num">Week 18</div>
+          <div class="week-title">Final Presentations</div>
+          <div class="week-desc">All remaining pairs present. 10 min + 5 min Q&A. Strategy, not just a site tour.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-top:1rem;font-size:0.8rem;color:var(--gray);">
+      <div style="width:10px;height:10px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+      Amber border indicates a week with an assessment event or deadline
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- TAB: FORMAT -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="tab-format">
+  <div class="section-inner">
+    <p class="section-label">How the Course Works</p>
+    <h2 class="section-title">Every week is a<br>3-hour session.</h2>
+    <p class="section-lead">Structured as three 50-minute blocks with 10-minute breaks. Lecture and activity every week — never lecture-only.</p>
+
+    <div class="format-grid">
+      <div class="format-card">
+        <div class="format-icon">🎯</div>
+        <div class="format-card-title">Session 1 — Lecture</div>
+        <div class="format-card-desc">Core concept introduced with Taiwan-specific examples, real brand cases, and live website analysis.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">⚡</div>
+        <div class="format-card-title">Session 2 — Activity</div>
+        <div class="format-card-desc">Apply what you just learned immediately — group exercises, peer analysis, design workshops, or critiques.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">💬</div>
+        <div class="format-card-title">Session 3 — Discussion or Build</div>
+        <div class="format-card-desc">Debate real eCommerce decisions, present findings, or work directly on your Dream Store project.</div>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">📱</div>
+        <div class="format-card-title">Mobile-First Thinking</div>
+        <div class="format-card-desc">Bring your phone to every class. Real-world testing on actual devices is a core part of Weeks 13–17.</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:2rem;">
+      <p class="section-label" style="margin-bottom:0.8rem">What You Need</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.8rem;">
+        <div style="background:var(--white);border:1px solid rgba(12,68,124,0.1);border-radius:10px;padding:1rem 1.2rem;display:flex;gap:0.8rem;align-items:flex-start;">
+          <span style="color:var(--teal);font-size:1.1rem;flex-shrink:0">✓</span>
+          <span style="font-size:0.88rem;line-height:1.5;color:var(--near-black)">A Google account (for Google Sites, Docs, Forms &amp; Gemini)</span>
+        </div>
+        <div style="background:var(--white);border:1px solid rgba(12,68,124,0.1);border-radius:10px;padding:1rem 1.2rem;display:flex;gap:0.8rem;align-items:flex-start;">
+          <span style="color:var(--teal);font-size:1.1rem;flex-shrink:0">✓</span>
+          <span style="font-size:0.88rem;line-height:1.5;color:var(--near-black)">Access to TRONCLASS for submissions and course materials</span>
+        </div>
+        <div style="background:var(--white);border:1px solid rgba(12,68,124,0.1);border-radius:10px;padding:1rem 1.2rem;display:flex;gap:0.8rem;align-items:flex-start;">
+          <span style="color:var(--teal);font-size:1.1rem;flex-shrink:0">✓</span>
+          <span style="font-size:0.88rem;line-height:1.5;color:var(--near-black)">A smartphone for mobile UX testing in Weeks 13–17</span>
+        </div>
+        <div style="background:var(--white);border:1px solid rgba(12,68,124,0.1);border-radius:10px;padding:1rem 1.2rem;display:flex;gap:0.8rem;align-items:flex-start;">
+          <span style="color:var(--teal);font-size:1.1rem;flex-shrink:0">✓</span>
+          <span style="font-size:0.88rem;line-height:1.5;color:var(--near-black)">No textbook required — all readings under 15 pages/week</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-note">
+      <p class="ai-note-label">Who This Course Is For</p>
+      <p class="ai-note-text">Year 3 BIM students who want to understand how digital businesses actually work — not just how to use the tools, but why certain strategies succeed and others fail. If you have ever wondered how to turn a product idea into a real online business, this course gives you the framework to do it.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────── -->
+<footer class="page-footer">
+  <span>eCommerce</span> · Year 3 Bachelor in International Management · 18 Weeks · 3 hrs/week
+  <br><br>
+  <span style="color:var(--gray);font-style:italic;font-size:0.72rem;">Changes to this syllabus may be made during the semester.</span>
+</footer>
+
+<script>
+// ── TAB NAVIGATION ─────────────────────────────────────────────────
+const tabs = document.querySelectorAll('.nav-tab');
+const sections = document.querySelectorAll('.section');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    sections.forEach(s => {
+      s.classList.remove('active');
+      s.style.display = 'none';
+    });
+
+    const el = document.getElementById('tab-' + target);
+    el.style.display = 'block';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.classList.add('active');
+      });
+    });
+
+    // Trigger animations for the revealed section
+    if (target === 'outcomes') animateOutcomes();
+    if (target === 'assessment') animateWeights();
+
+    window.scrollTo({ top: document.querySelector('.nav-sticky').offsetTop, behavior: 'smooth' });
+  });
+});
+
+// ── ACCORDION ──────────────────────────────────────────────────────
+document.querySelectorAll('.acc-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const item = header.parentElement;
+    const body = item.querySelector('.acc-body');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.acc-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.acc-body').style.maxHeight = '0';
+    });
+
+    // Open clicked if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  });
+});
+
+// ── ANIMATED WEIGHT COUNTERS ───────────────────────────────────────
+let weightsAnimated = false;
+
+function animateWeights() {
+  if (weightsAnimated) return;
+  weightsAnimated = true;
+
+  document.querySelectorAll('.weight-card').forEach((card, i) => {
+    const pct = parseInt(card.dataset.pct);
+    const bar = card.querySelector('.weight-bar');
+    const num = card.querySelector('.weight-pct');
+    const isFinal = bar.classList.contains('final');
+
+    setTimeout(() => {
+      // Animate bar
+      bar.style.width = pct + '%';
+      card.classList.add('counted');
+
+      // Animate counter
+      let count = 0;
+      const duration = 900;
+      const steps = 40;
+      const increment = pct / steps;
+      const interval = duration / steps;
+
+      const timer = setInterval(() => {
+        count = Math.min(count + increment, pct);
+        num.innerHTML = Math.round(count) + '<span>%</span>';
+        if (count >= pct) clearInterval(timer);
+      }, interval);
+
+    }, i * 150);
+  });
+}
+
+// ── OUTCOME CARDS STAGGER ─────────────────────────────────────────
+let outcomesAnimated = false;
+
+function animateOutcomes() {
+  if (outcomesAnimated) return;
+  outcomesAnimated = true;
+
+  document.querySelectorAll('.outcome-card').forEach((card, i) => {
+    card.style.animationDelay = (i * 0.08) + 's';
+    card.classList.add('visible');
+  });
+}
+
+// ── INIT: trigger if assessment tab is default ─────────────────────
+// (it isn't — overview is default — but in case)
+</script>
+</body>
+</html>
