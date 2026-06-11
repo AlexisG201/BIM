@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Efficient and Ethical Decision Making — Weekly Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#006B7A;--teal-lt:#E0F4F7;
+  --p1:#2E6FAD;--p1-lt:#D6EAF8;
+  --p2:#1A7A5E;--p2-lt:#D5F5E3;
+  --p3:#6B3FA0;--p3-lt:#EBD5F7;
+  --p4:#B94030;--p4-lt:#FDEDEC;
+  --ex:#C0680A;--ex-lt:#FDEBD0;
+  --bg:#F4F4F0;--card:#FFFFFF;
+  --text:#1A1A2E;--dim:#5A6478;--border:#E0DDD8;
+  --font-h:'Lora',Georgia,serif;
+  --font-b:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-size:15px;line-height:1.6}
+
+/* ── Header ── */
+.site-header{background:var(--teal);color:#fff;padding:28px 24px 24px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.site-header h1{font-family:var(--font-h);font-size:22px;font-weight:600;letter-spacing:.01em;margin-bottom:6px}
+.header-meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12px;opacity:.85}
+.header-meta span{display:flex;align-items:center;gap:5px}
+
+/* ── Controls ── */
+.controls{display:flex;gap:8px;align-items:center;padding:14px 24px;background:#fff;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.ctrl-btn{background:none;border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;font-family:var(--font-b);cursor:pointer;color:var(--dim);transition:all .2s}
+.ctrl-btn:hover{border-color:var(--teal);color:var(--teal)}
+.phase-pill{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.04em;cursor:pointer;transition:opacity .2s}
+.phase-pill:hover{opacity:.75}
+.pill-p1{background:var(--p1-lt);color:var(--p1)}
+.pill-p2{background:var(--p2-lt);color:var(--p2)}
+.pill-p3{background:var(--p3-lt);color:var(--p3)}
+.pill-p4{background:var(--p4-lt);color:var(--p4)}
+.pill-ex{background:var(--ex-lt);color:var(--ex)}
+
+/* ── Main layout ── */
+.main{max-width:1000px;margin:0 auto;padding:24px 20px 60px}
+
+/* ── Assessment summary ── */
+.assess-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:28px}
+.assess-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.assess-pct{font-family:var(--font-h);font-size:26px;font-weight:600;color:var(--teal);line-height:1}
+.assess-label{font-size:12px;font-weight:600;color:var(--text);margin:4px 0 2px}
+.assess-note{font-size:11px;color:var(--dim);line-height:1.4}
+
+/* ── Phase header ── */
+.phase-header{margin:28px 0 12px;padding:12px 18px;border-radius:10px;display:flex;align-items:baseline;gap:10px}
+.phase-header .ph-num{font-size:11px;font-weight:600;letter-spacing:.1em;opacity:.7;text-transform:uppercase}
+.phase-header .ph-title{font-family:var(--font-h);font-size:18px;font-weight:600}
+.phase-header .ph-weeks{font-size:12px;opacity:.7;margin-left:auto}
+.ph-1{background:var(--p1-lt);color:var(--p1)}
+.ph-2{background:var(--p2-lt);color:var(--p2)}
+.ph-3{background:var(--p3-lt);color:var(--p3)}
+.ph-4{background:var(--p4-lt);color:var(--p4)}
+
+/* ── Week card ── */
+.week-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.week-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s}
+.week-header:hover{background:#fafaf8}
+.week-num{font-size:11px;font-weight:600;letter-spacing:.06em;padding:3px 9px;border-radius:20px;flex-shrink:0;font-family:var(--font-b)}
+.wn-1{background:var(--p1-lt);color:var(--p1)}
+.wn-2{background:var(--p2-lt);color:var(--p2)}
+.wn-3{background:var(--p3-lt);color:var(--p3)}
+.wn-4{background:var(--p4-lt);color:var(--p4)}
+.wn-ex{background:var(--ex-lt);color:var(--ex)}
+.week-title{font-size:15px;font-weight:600;color:var(--text);flex:1}
+.week-subtitle{font-size:12px;color:var(--dim);font-style:italic}
+.chevron{font-size:12px;color:var(--dim);transition:transform .2s;flex-shrink:0}
+.week-card.open .chevron{transform:rotate(180deg)}
+.week-body{display:none;border-top:1px solid var(--border)}
+.week-card.open .week-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.col-topics{padding:16px 18px;border-right:1px solid var(--border)}
+.col-acts{padding:16px 18px}
+.col-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.topics-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.topics-list li{font-size:13px;color:var(--text);line-height:1.5;padding-left:14px;position:relative}
+.topics-list li::before{content:"▸";position:absolute;left:0;font-size:10px;color:var(--dim);top:2px}
+.topics-list li.note{color:var(--ex);font-weight:500}
+.acts-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.acts-list li{font-size:13px;line-height:1.5;display:flex;gap:8px}
+.act-num{flex-shrink:0;font-size:11px;font-weight:600;color:var(--teal);min-width:16px;margin-top:1px}
+.act-tag{display:inline-block;font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--teal-lt);color:var(--teal);flex-shrink:0;height:fit-content;margin-top:2px;white-space:nowrap}
+.act-tag.new{background:#FEF9E7;color:#C07010}
+.act-desc{color:var(--text)}
+
+/* ── Exam card ── */
+.week-card.exam-card{border-color:var(--ex)}
+.week-card.exam-card .week-header{background:var(--ex-lt)}
+.week-card.exam-card .week-header:hover{background:#fde8c0}
+.week-card.exam-card .week-body{border-top-color:var(--ex)}
+.week-card.exam-card .col-topics{border-right-color:var(--ex)}
+.exam-note{font-size:13px;font-weight:500;color:var(--ex)}
+
+/* ── Footer ── */
+.page-footer{text-align:center;padding:20px;font-size:12px;color:var(--dim);border-top:1px solid var(--border);margin-top:40px}
+
+/* ── Responsive ── */
+@media(max-width:640px){
+  .week-card.open .week-body{grid-template-columns:1fr}
+  .col-topics{border-right:none;border-bottom:1px solid var(--border);padding-bottom:14px}
+  .assess-bar{grid-template-columns:1fr 1fr}
+}
+
+@media print{
+  .site-header{position:static}
+  .controls{display:none}
+  .week-body{display:grid !important;grid-template-columns:1fr 1fr}
+  .chevron{display:none}
+  .week-card{break-inside:avoid;margin-bottom:6px}
+  .phase-header{margin:16px 0 8px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Efficient and Ethical Decision Making</h1>
+  <div class="header-meta">
+    <span>&#128218; 3 Credits &nbsp;·&nbsp; 18 Weeks</span>
+    <span>&#127979; Elective &mdash; Sophomores &amp; Juniors</span>
+    <span>&#128196; Course platform: TronClass</span>
+  </div>
+</header>
+
+<div class="controls">
+  <button class="ctrl-btn" onclick="toggleAll(true)">Expand all</button>
+  <button class="ctrl-btn" onclick="toggleAll(false)">Collapse all</button>
+  <span style="font-size:12px;color:var(--dim);margin:0 4px">Jump to:</span>
+  <span class="phase-pill pill-p1" onclick="scrollTo('p1')">Phase 1</span>
+  <span class="phase-pill pill-p2" onclick="scrollTo('p2')">Phase 2</span>
+  <span class="phase-pill pill-p3" onclick="scrollTo('p3')">Phase 3</span>
+  <span class="phase-pill pill-p4" onclick="scrollTo('p4')">Phase 4</span>
+</div>
+
+<div class="main">
+
+  <!-- Assessment summary -->
+  <div class="assess-bar">
+    <div class="assess-item">
+      <div class="assess-pct">30%</div>
+      <div class="assess-label">Participation</div>
+      <div class="assess-note">Every class; quality over quantity</div>
+    </div>
+    <div class="assess-item">
+      <div class="assess-pct">15%</div>
+      <div class="assess-label">Reflection Journal</div>
+      <div class="assess-note">&gt;500 words; 3 times per semester; dates announced in class</div>
+    </div>
+    <div class="assess-item">
+      <div class="assess-pct">15%</div>
+      <div class="assess-label">Individual Case Brief</div>
+      <div class="assess-note">Assigned Wk 11 &middot; Due Wk 13 &middot; &gt;800 words</div>
+    </div>
+    <div class="assess-item">
+      <div class="assess-pct">20%</div>
+      <div class="assess-label">Mid-Term Exam</div>
+      <div class="assess-note">Week 9 &middot; 24-hr take-home via TronClass</div>
+    </div>
+    <div class="assess-item">
+      <div class="assess-pct">20%</div>
+      <div class="assess-label">Final-Term Exam</div>
+      <div class="assess-note">Week 18 &middot; 24-hr take-home via TronClass</div>
+    </div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div id="p1" class="phase-header ph-1">
+    <span class="ph-num">Phase 1</span>
+    <span class="ph-title">Foundations of Decision-Making</span>
+    <span class="ph-weeks">Weeks 1–4</span>
+  </div>
+
+  <!-- Week 1 -->
+  <div class="week-card open" id="w1">
+    <div class="week-header" onclick="toggle('w1')">
+      <span class="week-num wn-1">Week 1</span>
+      <span class="week-title">What Is a Good Decision?</span>
+      <span class="week-subtitle">Process vs. outcome</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>Decision vs. choice: process matters as much as outcome</li>
+          <li>Outcome bias: a good decision can turn out badly — and vice versa</li>
+          <li>Why this distinction matters for accountability</li>
+          <li>Intro: AI as a decision supporter, not a decision-maker</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Poll</span><span class="act-desc">Did your last major decision turn out well because of good judgment or good luck? Anonymous class poll and discussion.</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Discussion</span><span class="act-desc">Two scenarios: a manager who followed data and failed; one who ignored data and succeeded. Was either decision good?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Case</span><span class="act-desc">7-Eleven Taiwan adds a new product across 25,000+ stores. What makes this a good or bad decision regardless of outcome?</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">Categorize 3 witnessed decisions across the 2×2 matrix: process quality vs. outcome quality.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Reflect</span><span class="act-desc">Exit ticket: In 3 sentences, what does responsible decision-making mean to you? Saved for Week 18 comparison.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 2 -->
+  <div class="week-card" id="w2">
+    <div class="week-header" onclick="toggle('w2')">
+      <span class="week-num wn-1">Week 2</span>
+      <span class="week-title">Cognitive Biases &amp; Mental Shortcuts</span>
+      <span class="week-subtitle">System 1 vs. System 2</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>Kahneman's System 1 (fast, intuitive) vs. System 2 (slow, deliberate)</li>
+          <li>Key biases: anchoring, confirmation bias, availability heuristic, groupthink</li>
+          <li>Parrish's four defaults: emotional, ego, social, inertia</li>
+          <li>How AI outputs can become a new anchoring point</li>
+          <li>Taiwan context: herd investing behavior, crypto bubbles</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Quiz</span><span class="act-desc">Classic anchoring exercise: two groups see different numbers, then estimate the same quantity. The gap is always surprising.</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Discussion</span><span class="act-desc">Have you ever changed your answer after seeing ChatGPT's response — even when you weren't sure it was right?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Case</span><span class="act-desc">Taiwanese retail investors during the 2021 crypto surge. Which biases explain the herd behavior?</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">Given a Taiwan business scenario, identify the 2 biases most likely to appear.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Debate</span><span class="act-desc">"AI-generated recommendations reduce cognitive bias." Half for, half against. 3 minutes each side.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 3 -->
+  <div class="week-card" id="w3">
+    <div class="week-header" onclick="toggle('w3')">
+      <span class="week-num wn-1">Week 3</span>
+      <span class="week-title">Ethical Frameworks as Decision Lenses</span>
+      <span class="week-subtitle">Utilitarianism · Deontology · Virtue ethics · ESG</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>Utilitarianism — Who benefits most overall?</li>
+          <li>Deontology — What rule or duty applies?</li>
+          <li>Virtue ethics — What would a person of good character do?</li>
+          <li>ESG/CSR as applied ethics: how each framework maps onto corporate sustainability metrics</li>
+          <li>Applying multiple lenses — and ESG criteria — to the same decision</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">A Taiwanese food company discovers a quality issue one week before launch. What does each framework recommend?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Group</span><span class="act-desc">Framework Sorting: apply all 3 frameworks to different short cases. Do they agree?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Role Play</span><span class="act-desc">Board members of a fictional Taiwanese tech company, each assigned a different framework, debate launching an AI customer scoring system.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag new">V3 Case</span><span class="act-desc">TSMC's water usage during Taiwan's 2021 drought. Apply all three frameworks and connect to TSMC's ESG disclosures.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Reflect</span><span class="act-desc">Which framework feels most natural to you — and which is hardest to apply? Why?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 4 -->
+  <div class="week-card" id="w4">
+    <div class="week-header" onclick="toggle('w4')">
+      <span class="week-num wn-1">Week 4</span>
+      <span class="week-title">Organizational &amp; Cultural Decision-Making</span>
+      <span class="week-subtitle">Face, hierarchy, guanxi</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>How organizations actually decide: committees, hierarchy, consensus culture</li>
+          <li>Taiwan-specific dynamics: guanxi, face, deference to seniority</li>
+          <li>Why "yes" doesn't always mean yes in high-context cultures</li>
+          <li>Confucian values vs. transparent accountability</li>
+          <li>High-context (Taiwan) vs. low-context (Germany, US) decision styles</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">Have you ever disagreed with a group decision but said nothing? Anonymous poll first, then open discussion.</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Simulation</span><span class="act-desc">Team A reaches consensus with no open disagreement; Team B uses structured debate. Same problem — compare results and how each felt.</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Case</span><span class="act-desc">A Taiwanese subsidiary receives instructions from HQ that conflict with local norms. Where does real decision authority sit?</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">Decision Mapping: draw the real vs. official decision flow in a Taiwanese organization you have worked at.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Discussion</span><span class="act-desc">Can AI reduce face-saving pressures in group decisions through anonymous voting? What risks does that introduce?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div id="p2" class="phase-header ph-2">
+    <span class="ph-num">Phase 2</span>
+    <span class="ph-title">AI as Decision Partner</span>
+    <span class="ph-weeks">Weeks 5–8</span>
+  </div>
+
+  <!-- Week 5 -->
+  <div class="week-card" id="w5">
+    <div class="week-header" onclick="toggle('w5')">
+      <span class="week-num wn-2">Week 5</span>
+      <span class="week-title">AI Basics for Managers</span>
+      <span class="week-subtitle">What AI actually does</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>What AI actually does: pattern recognition from data, not reasoning</li>
+          <li>Key types (business focus): classification, prediction, recommendation, generative AI</li>
+          <li>What "training data" means and why it matters for decisions</li>
+          <li>The black box problem and why explainability matters</li>
+          <li>Taiwan context: TAIDE (Trustworthy AI Dialogue Engine), sovereign AI</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Poll</span><span class="act-desc">Scale 1–5: how well do you understand how ChatGPT works? Poll, explain the mechanism, re-poll after.</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Discussion</span><span class="act-desc">If an AI recommends a job candidate and you hire them — who made the decision?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Demo</span><span class="act-desc">Live demo: same prompt with slightly different phrasing produces different outputs. What does this reveal?</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">AI or Not?: given 6 Taiwanese business decisions, guess which ones used AI and explain your reasoning.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Case</span><span class="act-desc">Taiwan's TAIDE project: why build a local AI model instead of using GPT? What values does a "sovereign AI" embed?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 6 -->
+  <div class="week-card" id="w6">
+    <div class="week-header" onclick="toggle('w6')">
+      <span class="week-num wn-2">Week 6</span>
+      <span class="week-title">AI as Decision Support — The Upside</span>
+      <span class="week-subtitle">Augmentation vs. replacement</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>Where AI genuinely helps: speed, pattern detection, consistency</li>
+          <li>Taiwan examples: fraud detection (LINE Pay, EasyCard), credit scoring, logistics (Momo, PChome)</li>
+          <li>Medical triage (NHI data), predictive maintenance (TSMC supply chain)</li>
+          <li>Decision augmentation vs. decision replacement — the key distinction</li>
+          <li>Industry 4.0 in Taiwan: manufacturing AI adoption rates</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">What decisions does an algorithm already make for you — Foodpanda routing, Spotify, YouTube? Are you OK with this?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Case</span><span class="act-desc">Taiwanese logistics company uses AI routing; on-time delivery up 18%. What decisions should remain with the human driver?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Group</span><span class="act-desc">AI Decision Audit: for a given Taiwanese industry, map where AI could augment 3 specific decisions. Identify benefit and risk for each.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Debate</span><span class="act-desc">"A bank's AI system should be able to reject a loan application without human review." Structured debate with assigned sides.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Reflect</span><span class="act-desc">One decision in your intended career where you'd welcome AI help; one where you'd resist it. Explain both.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 7 -->
+  <div class="week-card" id="w7">
+    <div class="week-header" onclick="toggle('w7')">
+      <span class="week-num wn-2">Week 7</span>
+      <span class="week-title">Human-AI Collaboration — Trust &amp; Override</span>
+      <span class="week-subtitle">When to trust, when to override</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>When to trust AI output vs. when to override it</li>
+          <li>Over-reliance: automation bias and its consequences</li>
+          <li>Under-reliance: ignoring useful AI signals due to distrust or ego</li>
+          <li>Mollick's framework: AI as collaborator, not oracle</li>
+          <li>Psychological safety in questioning AI recommendations</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Simulation</span><span class="act-desc">AI hiring tool recommends rejecting a candidate; manager disagrees. Play out the deliberation: who overrides, how, and with what documentation?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Discussion</span><span class="act-desc">A doctor disagrees with an AI diagnostic tool that is correct 91% of the time. Does she override it?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag new">V3 Live AI</span><span class="act-desc">Live AI Prompt &amp; Critique (20 min): use ChatGPT or TAIDE on a Taiwanese business scenario, then audit the output in pairs for assumptions, cultural blind spots, and overconfidence.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">Trust Calibration: for 5 AI recommendations, set the appropriate oversight level — full trust / verify then act / one input among many / discard.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Discussion</span><span class="act-desc">Your manager tells you to implement an AI recommendation you disagree with. What do you do? Role-play escalation options.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 8 -->
+  <div class="week-card" id="w8">
+    <div class="week-header" onclick="toggle('w8')">
+      <span class="week-num wn-2">Week 8</span>
+      <span class="week-title">AI Bias, Fairness &amp; Discrimination</span>
+      <span class="week-subtitle">How AI inherits and amplifies bias</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>How AI inherits and amplifies bias from training data</li>
+          <li>Types of bias: data bias, feedback loops, proxy discrimination</li>
+          <li>Taiwan angle: demographic proxies (district, age, gender) in credit and hiring algorithms</li>
+          <li>What does "fairness" mean? Individual vs. group fairness; cultural differences</li>
+          <li>Real cases: facial recognition errors, biased resume screening tools</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Case</span><span class="act-desc">Amazon's AI hiring tool systematically downgraded resumes correlated with women. Could this happen at a Taiwanese tech company?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Discussion</span><span class="act-desc">If an AI loan system has higher rejection rates for applicants from certain districts in Taiwan — is that discrimination?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Group</span><span class="act-desc">Design a fairness checklist for a specific AI use case. What data should never be used? What audits are required?</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Role Play</span><span class="act-desc">A Taiwanese company's AI performance review system has been flagged for gender bias. Students play the employee, HR manager, AI vendor, and CEO.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Reflect</span><span class="act-desc">Have you ever felt an algorithm treated you unfairly? What made it feel unfair?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mid-Term Exam -->
+  <div class="week-card exam-card" id="w9">
+    <div class="week-header" onclick="toggle('w9')">
+      <span class="week-num wn-ex">Week 9</span>
+      <span class="week-title">Mid-Term Exam</span>
+      <span class="week-subtitle exam-note">24-hr take-home via TronClass &mdash; 00:01 to 23:59</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Format</div>
+        <ul class="topics-list">
+          <li>Individual, 24-hour take-home case study</li>
+          <li>Exam questions announced on TronClass at 00:01</li>
+          <li>Submit completed response via TronClass before 23:59 same day</li>
+          <li>No formal class session — instructor available via TronClass message board for factual clarifications about the case only</li>
+          <li>All course materials permitted; no collaboration with other students</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">What the exam covers</div>
+        <ul class="acts-list">
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Scope</span><span class="act-desc">One case study: a fictional Taiwanese company deploying AI in a consequential business decision. Integrates Weeks 1–8.</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Q1</span><span class="act-desc">Decision type and process quality assessment</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Q2</span><span class="act-desc">Identification and analysis of cognitive biases present</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Q3</span><span class="act-desc">Ethical analysis using at least 2 frameworks</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Q4</span><span class="act-desc">AI's role in the decision and your written recommendation</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div id="p3" class="phase-header ph-3">
+    <span class="ph-num">Phase 3</span>
+    <span class="ph-title">Ethics, Accountability &amp; Governance</span>
+    <span class="ph-weeks">Weeks 10–13</span>
+  </div>
+
+  <!-- Week 10 -->
+  <div class="week-card" id="w10">
+    <div class="week-header" onclick="toggle('w10')">
+      <span class="week-num wn-3">Week 10</span>
+      <span class="week-title">AI Accountability — Who Is Responsible?</span>
+      <span class="week-subtitle">Developer, deployer, or user?</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>The accountability gap: developer, deployer, or user?</li>
+          <li>Distributed responsibility across AI supply chains</li>
+          <li>Taiwan's Personal Data Protection Act and AI governance</li>
+          <li>Taiwan AI Basic Act: risk-based approach, accountability requirements</li>
+          <li>Comparing Taiwan, EU AI Act, and US approaches</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">An AI chatbot gives a Taiwanese insurance customer incorrect information and they make a poor financial decision. Who is liable?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Case</span><span class="act-desc">Trace the accountability chain for an AI screening tool that rejects qualified candidates: data collector → model trainer → platform → hiring company.</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Group</span><span class="act-desc">Draft a one-paragraph AI Responsibility Policy for a Taiwanese company in your assigned industry.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Debate</span><span class="act-desc">"AI systems making high-stakes decisions should be required to explain their reasoning in plain language to affected individuals."</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Reflect</span><span class="act-desc">If you work at a company that deploys an AI tool that causes harm — even if you didn't build it — do you bear responsibility?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 11 -->
+  <div class="week-card" id="w11">
+    <div class="week-header" onclick="toggle('w11')">
+      <span class="week-num wn-3">Week 11</span>
+      <span class="week-title">Privacy, Data &amp; Surveillance</span>
+      <span class="week-subtitle">Individual Case Brief assigned this week</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>How personal data powers AI decision systems</li>
+          <li>Workplace surveillance: monitoring software, productivity tracking</li>
+          <li>Taiwan's post-COVID remote work context</li>
+          <li>Consumer data: LINE, Shopee, health apps — what is collected and how it feeds AI decisions</li>
+          <li>The employee perspective: where is the ethical line?</li>
+          <li class="note">&#9733; Individual Case Brief assigned — details distributed in class and on TronClass</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Poll</span><span class="act-desc">Would you accept a job where your keystrokes and screen activity were monitored all day? Anonymous poll and discussion.</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Discussion</span><span class="act-desc">Shopee and Momo know your purchase history, location, browsing patterns, and time of day you shop. Is this a decision problem, a privacy problem, or both?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Case</span><span class="act-desc">A Taiwanese manufacturer installs AI cameras to monitor worker posture and line speed. What data is collected, what decisions does it inform, what are the ethical limits?</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Role Play</span><span class="act-desc">Ethics review board considering employee productivity monitoring. Roles: HR manager, IT vendor, frontline employee, legal counsel, CEO.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Group</span><span class="act-desc">Data Mapping: for a given Taiwanese app or service, map what data is collected, who has access, and what decisions it could feed.</span></li>
+          <li><span class="act-num">6.</span><span class="act-tag new">V6 Brief</span><span class="act-desc">Individual Case Brief assigned. Instructor distributes full guidelines via TronClass and walks through requirements in class. Due Week 13. Questions may be raised on TronClass or in Week 12.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 12 -->
+  <div class="week-card" id="w12">
+    <div class="week-header" onclick="toggle('w12')">
+      <span class="week-num wn-3">Week 12</span>
+      <span class="week-title">AI Governance &amp; Regulation</span>
+      <span class="week-subtitle">Last Q&amp;A before Case Brief due</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>AI governance at the company level: internal policies, audits, ethics committees</li>
+          <li>Taiwan AI Action Plan 2.0 (2023–2026)</li>
+          <li>Taiwan AI Basic Act: transparency, accountability, fairness, safety</li>
+          <li>Risk-based regulation: high-risk vs. low-risk AI systems</li>
+          <li>EU AI Act as benchmark; comparison with Taiwan's approach</li>
+          <li class="note">&#9733; Last chance to ask Case Brief questions before Week 13 submission</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">Should Taiwan follow the EU's strict risk-based AI regulation or a lighter innovation-friendly approach? What are the tradeoffs?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Case</span><span class="act-desc">A Taiwanese hospital wants to deploy an AI diagnostic tool. Under a risk-based framework, is this high-risk? What governance requirements apply?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Group</span><span class="act-desc">Policy design: for your assigned sector, design a basic AI governance framework — 3 mandatory requirements and 2 prohibited uses.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag new">V3 Pitch</span><span class="act-desc">Regulatory Compliance Startup Pitch (30 min): pitch an AI product to a skeptical investor and prove it complies with Taiwan's AI Basic Act and PDPA without destroying the business model.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag new">V6 Q&amp;A</span><span class="act-desc">Open Q&amp;A on the Individual Case Brief. Instructor addresses common questions from TronClass. Last opportunity for guidance before the Week 13 deadline.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 13 -->
+  <div class="week-card" id="w13">
+    <div class="week-header" onclick="toggle('w13')">
+      <span class="week-num wn-3">Week 13</span>
+      <span class="week-title">Decision-Making Under Uncertainty</span>
+      <span class="week-subtitle">Individual Case Brief due today by 23:59</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>Risk vs. uncertainty: known unknowns vs. unknown unknowns</li>
+          <li>Scenario planning: building multiple futures instead of one forecast</li>
+          <li>Decision trees and expected value — and their limits</li>
+          <li>Pre-mortem analysis: imagining failure before it happens</li>
+          <li>Taiwan case: navigating US-China trade tensions in supply chain decisions</li>
+          <li class="note">&#9733; Individual Case Brief due today — submit via TronClass before 23:59</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">When should a manager trust a 90% accurate AI prediction enough to act? What if the 10% error matters more than the 90% accuracy?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Simulation</span><span class="act-desc">Groups build a scenario plan for a Taiwanese company considering capacity expansion. Three scenarios: US-China tensions escalate / stabilize / reverse.</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Group</span><span class="act-desc">Pre-mortem: a Taiwanese startup is about to launch an AI financial advice app. 10 minutes to list every reason it could fail.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Case</span><span class="act-desc">TSMC's decisions to build fabs in the US and Japan. What kinds of uncertainty were they navigating? How did scenario thinking appear in public statements?</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag new">V6 Submit</span><span class="act-desc">Individual Case Brief due today. Submit written analysis (&gt;800 words) via TronClass before 23:59. Late submissions not accepted. Feedback returned within two weeks.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div id="p4" class="phase-header ph-4">
+    <span class="ph-num">Phase 4</span>
+    <span class="ph-title">Applied Decision-Making</span>
+    <span class="ph-weeks">Weeks 14–17</span>
+  </div>
+
+  <!-- Week 14 -->
+  <div class="week-card" id="w14">
+    <div class="week-header" onclick="toggle('w14')">
+      <span class="week-num wn-4">Week 14</span>
+      <span class="week-title">Cross-Cultural Decision-Making</span>
+      <span class="week-subtitle">High-context vs. low-context environments</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>How culture shapes what counts as ethical and effective</li>
+          <li>High-context (Taiwan, Japan) vs. low-context (Germany, US) decision styles</li>
+          <li>Confucian values: harmony, face, loyalty, hierarchy — in tension with transparency</li>
+          <li>When global companies impose Western frameworks on Asian subsidiaries</li>
+          <li>AI systems trained on Western data: cultural blind spots for Taiwanese users</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">A US HQ sends an AI-generated performance review policy to its Taiwan subsidiary — employees ranked and giving visible peer feedback. What cultural problems arise?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Case</span><span class="act-desc">A Taiwanese manager must tell a senior colleague their project failed due to poor judgment. How does face and hierarchy affect whether and how this is communicated?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Role Play</span><span class="act-desc">International negotiation: a Taiwanese company and a German partner disagree on a supply contract term. Play out the negotiation using each culture's natural decision style.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">AI Cultural Audit: identify 3 types of decisions where Western-trained AI produces culturally inappropriate recommendations for Taiwanese users.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Reflect</span><span class="act-desc">Describe a moment where cultural expectations conflicted with your own judgment about the right decision. What did you do?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 15 -->
+  <div class="week-card" id="w15">
+    <div class="week-header" onclick="toggle('w15')">
+      <span class="week-num wn-4">Week 15</span>
+      <span class="week-title">Crisis &amp; High-Stakes Decision-Making</span>
+      <span class="week-subtitle">Speed vs. deliberation</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>The tension between speed and deliberation under pressure</li>
+          <li>How cognitive biases intensify in crisis situations</li>
+          <li>Crisis communication and decision transparency</li>
+          <li>Taiwan cases: food safety scandals, corporate governance failures</li>
+          <li>AI in crisis detection — and the risk of false alarms or missed signals</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Simulation</span><span class="act-desc">Crisis simulation: groups receive a breaking scenario (product contamination, cyberattack, regulatory investigation). 10 minutes to make and communicate 3 decisions. Which biases appeared?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Case</span><span class="act-desc">The 2014 gutter oil scandal: trace decision-making at each level — supplier, processor, distributor, food company, regulator. Where did the chain break?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Discussion</span><span class="act-desc">During COVID, Taiwan's CDC made real-time decisions under extreme uncertainty. What made some of those decisions responsible even when outcomes were uncertain?</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">Speed vs. Deliberation Audit: for 4 crisis types, how fast must a decision be made? What must not be skipped even under time pressure?</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Debate</span><span class="act-desc">"Companies should have AI-generated crisis decision playbooks that managers are required to follow under certain trigger conditions."</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 16 -->
+  <div class="week-card" id="w16">
+    <div class="week-header" onclick="toggle('w16')">
+      <span class="week-num wn-4">Week 16</span>
+      <span class="week-title">Automation, Jobs &amp; Workforce Ethics</span>
+      <span class="week-subtitle">The ethics of displacement</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>The ethics of replacing workers with AI and automation</li>
+          <li>Taiwan manufacturing context: Industry 4.0, TSMC-adjacent supply chain automation</li>
+          <li>What obligations does a company have to workers it displaces?</li>
+          <li>AI in performance management: monitoring, scoring, and terminating by algorithm</li>
+          <li>Responsible transition: reskilling, communication, and dignity</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Discussion</span><span class="act-desc">A Taiwanese manufacturer automates 200 jobs and uses the savings to hire 20 AI engineers. Is this ethical? Who should answer that question?</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Case</span><span class="act-desc">A logistics company's AI routing turns delivery riders into algorithm-followers. How does this change their autonomy? Is this deskilling?</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Role Play</span><span class="act-desc">CEO announces AI-driven layoffs to 50 employees. Students play: CEO, HR manager, worker about to be laid off, union representative.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Group</span><span class="act-desc">Design a responsible automation policy: how workers are informed, what support is offered, and what decisions the company will NOT automate.</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag">Reflect</span><span class="act-desc">What human decision-making capabilities should never be fully handed to an AI? What makes those capabilities distinctly human?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Week 17 -->
+  <div class="week-card" id="w17">
+    <div class="week-header" onclick="toggle('w17')">
+      <span class="week-num wn-4">Week 17</span>
+      <span class="week-title">Course Synthesis &amp; Final Exam Preparation</span>
+      <span class="week-subtitle">Personal framework + exam logistics</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Topics</div>
+        <ul class="topics-list">
+          <li>Synthesizing the course: cognitive, ethical, cultural, and AI dimensions</li>
+          <li>A Responsible AI Checklist for business decisions</li>
+          <li>Personal decision framework: values, process steps, cultural red flags, AI stance</li>
+          <li>Scope and expectations for the Week 18 Final-Term Exam</li>
+          <li>Revisiting Week 1: how has your understanding of responsible decision-making changed?</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">Activities &amp; Discussions</div>
+        <ul class="acts-list">
+          <li><span class="act-num">1.</span><span class="act-tag">Group</span><span class="act-desc">Responsible Decision Checklist Workshop: build a one-page checklist for a manager at a Taiwanese company using AI. Present to class.</span></li>
+          <li><span class="act-num">2.</span><span class="act-tag">Simulation</span><span class="act-desc">CEO for 10 Minutes: each student receives a one-paragraph dilemma, applies their personal framework, and writes a recommendation in 10 minutes.</span></li>
+          <li><span class="act-num">3.</span><span class="act-tag">Discussion</span><span class="act-desc">What decisions should humans never delegate to AI? Compile a class consensus list. Revisit the Week 1 exit ticket.</span></li>
+          <li><span class="act-num">4.</span><span class="act-tag">Peer Review</span><span class="act-desc">Exchange Personal Decision Framework drafts. Structured feedback: What is strong? What is missing? What values are implicit but unstated?</span></li>
+          <li><span class="act-num">5.</span><span class="act-tag new">V6 Prep</span><span class="act-desc">Final exam prep: format, scope, TronClass logistics (00:01 release / 23:59 deadline), open-book rules, and what constitutes an acceptable response. Q&amp;A on Weeks 10–17.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Exam -->
+  <div class="week-card exam-card" id="w18">
+    <div class="week-header" onclick="toggle('w18')">
+      <span class="week-num wn-ex">Week 18</span>
+      <span class="week-title">Final-Term Exam</span>
+      <span class="week-subtitle exam-note">24-hr take-home via TronClass &mdash; 00:01 to 23:59</span>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="week-body">
+      <div class="col-topics">
+        <div class="col-label">Format</div>
+        <ul class="topics-list">
+          <li>Individual, 24-hour take-home case study</li>
+          <li>Exam questions announced on TronClass at 00:01</li>
+          <li>Submit completed responses via TronClass before 23:59 same day</li>
+          <li>No formal class session — instructor available via TronClass for factual clarifications only</li>
+          <li>All course materials permitted; no collaboration with other students</li>
+          <li>Instructor posts Week 1 exit tickets back to students via TronClass after submission deadline closes</li>
+        </ul>
+      </div>
+      <div class="col-acts">
+        <div class="col-label">What the exam covers</div>
+        <ul class="acts-list">
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Scope</span><span class="act-desc">1–2 complex multi-stakeholder cases integrating the full semester. Cases are set in Taiwanese organizational contexts.</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Topic</span><span class="act-desc">Decision process quality and cognitive bias analysis</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Topic</span><span class="act-desc">Multi-framework ethical analysis (minimum 2 frameworks)</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Topic</span><span class="act-desc">Cultural dynamics, AI governance, and accountability analysis</span></li>
+          <li><span class="act-num">&#9679;</span><span class="act-tag">Topic</span><span class="act-desc">Written recommendation with justification</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    Efficient and Ethical Decision Making &nbsp;&middot;&nbsp; 3 Credits &nbsp;&middot;&nbsp; 18 Weeks &nbsp;&middot;&nbsp; Elective
+  </div>
+</div>
+
+<script>
+function toggle(id){
+  const card=document.getElementById(id);
+  card.classList.toggle('open');
+}
+function toggleAll(open){
+  document.querySelectorAll('.week-card').forEach(c=>{
+    open ? c.classList.add('open') : c.classList.remove('open');
+  });
+}
+function scrollTo(id){
+  const el=document.getElementById(id);
+  if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+}
+</script>
+</body>
+</html>
