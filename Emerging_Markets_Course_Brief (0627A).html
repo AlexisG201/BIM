@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Emerging Markets Analysis — Course Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF6EE; --ink:#283044; --ink-soft:#5b6478;
+  --orange:#F2935C; --orange-deep:#D9763C; --orange-light:#FCE7D6;
+  --jade:#5B8C72; --jade-deep:#436856; --jade-light:#E2ECE6;
+  --gold:#D9A24B; --line:#E5DCC9; --card:#FFFFFF; --max:1080px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+
+/* ── HERO ─────────────────────────────────────────────────────────────────── */
+header.hero{position:relative;overflow:hidden;background:var(--ink);color:var(--bg);padding:64px 0 56px;}
+header.hero::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 14% 22%,rgba(242,147,92,.35),transparent 42%),
+             radial-gradient(circle at 86% 78%,rgba(91,140,114,.35),transparent 46%);}
+.hero-inner{position:relative;z-index:2;}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 18px;}
+h1.title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(40px,7vw,72px);line-height:1.02;margin:0 0 14px;letter-spacing:-0.01em;}
+.title em{font-style:italic;font-weight:500;color:var(--orange);}
+.tagline{font-size:clamp(16px,2.4vw,20px);color:#cfd4e2;max-width:620px;margin:0 0 28px;}
+.hero-meta{display:flex;flex-wrap:wrap;gap:14px 28px;font-size:14.5px;color:#b9c0d3;border-top:1px solid rgba(255,255,255,.14);padding-top:22px;}
+.hero-meta strong{color:var(--bg);font-weight:700;}
+
+/* ── SECTION GENERIC ─────────────────────────────────────────────────────── */
+section{padding:60px 0;}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-deep);font-weight:700;margin:0 0 8px;}
+h2.section-title{font-family:'Fraunces',serif;font-weight:800;font-size:clamp(26px,4vw,36px);margin:0 0 12px;letter-spacing:-0.01em;}
+.lede{max-width:680px;color:var(--ink-soft);font-size:15.5px;margin-bottom:32px;}
+
+/* ── OVERVIEW ────────────────────────────────────────────────────────────── */
+.overview-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:start;}
+@media(max-width:700px){.overview-grid{grid-template-columns:1fr;}}
+.overview-grid p{margin:0 0 14px;color:var(--ink);}
+.goal-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+.goal-list li{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+.goal-num{font-family:'Fraunces',serif;font-weight:800;font-size:19px;color:var(--orange-deep);flex:0 0 auto;line-height:1.1;}
+.goal-list span{font-size:14px;color:var(--ink-soft);}
+
+/* ── EVAL ────────────────────────────────────────────────────────────────── */
+.eval-bar{display:flex;flex-wrap:wrap;gap:3px;border-radius:12px;overflow:hidden;margin-bottom:24px;}
+.eval-seg{height:44px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;min-width:44px;flex-grow:1;}
+.eval-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+.eval-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;border-top:4px solid var(--c);}
+.eval-card .pct{font-family:'Fraunces',serif;font-weight:900;font-size:28px;color:var(--c);line-height:1;}
+.eval-card .name{font-weight:700;margin:6px 0 3px;font-size:14.5px;}
+.eval-card .fmt{font-size:13px;color:var(--ink-soft);}
+
+/* ── ROUTE ───────────────────────────────────────────────────────────────── */
+.leg-label{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--jade-deep);font-weight:700;margin:32px 0 14px;display:flex;align-items:center;gap:12px;}
+.leg-label::after{content:"";flex:1;height:1px;background:var(--line);}
+.leg-label:first-of-type{margin-top:0;}
+.stalls{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+.stall{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 16px 16px;transition:transform .15s,box-shadow .15s;}
+.stall:hover{transform:translateY(-2px);box-shadow:0 8px 20px -12px rgba(40,48,68,.3);}
+.stall::before{content:"";position:absolute;top:0;left:16px;right:16px;height:5px;background:var(--accent);border-radius:0 0 5px 5px;}
+.stall .ticket{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:8px;display:block;}
+.stall h3{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.2;}
+.stall p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5;}
+.stall.special{background:var(--ink);}
+.stall.special .ticket{color:var(--gold);}
+.stall.special h3{color:var(--bg);}
+.stall.special p{color:#b9c0d3;}
+.stall.special::before{background:var(--gold);}
+.stall.c1{--accent:var(--orange);}
+.stall.c2{--accent:var(--jade);}
+.stall.c3{--accent:var(--gold);}
+
+/* ── ASSESSMENTS ─────────────────────────────────────────────────────────── */
+.assess-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.assess-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;border-left:5px solid var(--c);}
+.assess-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.assess-head h3{font-family:'Fraunces',serif;font-size:18px;margin:0;line-height:1.2;}
+.assess-pct{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px;color:var(--c);white-space:nowrap;}
+.assess-meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--jade-deep);font-weight:700;margin-bottom:8px;}
+.assess-card p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+.tba-badge{display:inline-block;background:var(--orange-light);color:var(--orange-deep);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;padding:3px 9px;border-radius:999px;margin-top:8px;}
+
+/* ── RULES ───────────────────────────────────────────────────────────────── */
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:8px;}
+.rule-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;}
+.rule-icon{font-size:22px;flex:0 0 auto;margin-top:2px;}
+.rule-card h4{font-size:14.5px;font-weight:700;margin:0 0 3px;}
+.rule-card p{font-size:13px;color:var(--ink-soft);margin:0;}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+footer{background:var(--ink);color:#b9c0d3;padding:36px 0;font-size:13.5px;}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;}
+footer strong{color:var(--bg);}
+.foot-note{color:#8b93a8;font-size:12.5px;}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Course Brief · Year 1 · International Management</p>
+    <h1 class="title">Emerging Markets<br><em>Analysis</em></h1>
+    <p class="tagline">An 18-week tour of ASEAN, South Asia, the Middle East, and Africa — what makes these markets matter to Taiwan, and what that means for the people working in them.</p>
+    <div class="hero-meta">
+      <span><strong>Tuesdays</strong> · 09:00–12:00</span>
+      <span><strong>18 weeks</strong></span>
+      <span><strong>Groups of 3</strong></span>
+      <span>Asst. Prof. Alexis Goh · MA309</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── OVERVIEW ───────────────────────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <div class="overview-grid">
+      <div>
+        <p class="section-eyebrow">What this course is about</p>
+        <h2 class="section-title" style="margin-bottom:16px;">Taiwan doesn't exist in isolation</h2>
+        <p>Taiwan depends on trade routes through the Middle East, manufacturing partnerships across ASEAN, energy suppliers in the Gulf, and an increasingly contested position in global supply chains. This course builds a working knowledge of the markets that matter most to Taiwan — and asks you to think critically about what those markets mean for business.</p>
+        <p>Every week follows the same pattern: learn the basics of a country, compare it to Taiwan, and discuss a real business question. The questions don't have single correct answers — what matters is whether your reasoning holds up.</p>
+        <p>Not all countries covered are formally classified as "emerging markets." They've been selected because of their strategic relevance to Taiwan's economy and business interests.</p>
+      </div>
+      <ul class="goal-list">
+        <li><span class="goal-num">01</span><span>Know the geography, demographics, politics, and economy of major markets across ASEAN, South Asia, the Middle East, and Africa.</span></li>
+        <li><span class="goal-num">02</span><span>Understand the "emerging market" label — and where it breaks down.</span></li>
+        <li><span class="goal-num">03</span><span>Compare each market to Taiwan across economy, risk, and trade.</span></li>
+        <li><span class="goal-num">04</span><span>Build and defend a reasoned business judgment.</span></li>
+        <li><span class="goal-num">05</span><span>Use AI tools critically — as a research aid, not a substitute for thinking.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── EVALUATION ─────────────────────────────────────────────────────────── -->
+<section style="background:#F3EEE2;">
+  <div class="wrap">
+    <p class="section-eyebrow">How you're graded</p>
+    <h2 class="section-title">Evaluation at a glance</h2>
+    <p class="lede">Show up, engage, and think. The quizzes are the biggest single component — they reward consistent attendance and preparation, not last-minute cramming.</p>
+
+    <div class="eval-bar">
+      <div class="eval-seg" style="background:#F2935C;flex-grow:40;">40%</div>
+      <div class="eval-seg" style="background:#5B8C72;flex-grow:10;">10%</div>
+      <div class="eval-seg" style="background:#D9A24B;flex-grow:15;">15%</div>
+      <div class="eval-seg" style="background:#283044;flex-grow:15;">15%</div>
+      <div class="eval-seg" style="background:#D9763C;flex-grow:15;">15%</div>
+      <div class="eval-seg" style="background:#8FA89B;flex-grow:5;">5%</div>
+    </div>
+
+    <div class="eval-cards">
+      <div class="eval-card" style="--c:#F2935C;">
+        <div class="pct">40%</div>
+        <div class="name">Weekly Quizzes ×8</div>
+        <div class="fmt">15 min · pen-and-paper · start of class · phones at the front</div>
+      </div>
+      <div class="eval-card" style="--c:#5B8C72;">
+        <div class="pct">10%</div>
+        <div class="name">Individual Assignment I</div>
+        <div class="fmt">Written · Word or PDF · TronClass · due before Week 5</div>
+      </div>
+      <div class="eval-card" style="--c:#D9A24B;">
+        <div class="pct">15%</div>
+        <div class="name">Group Assignment II</div>
+        <div class="fmt">Written brief · groups of 3 · due before Week 14</div>
+      </div>
+      <div class="eval-card" style="--c:#283044;">
+        <div class="pct">15%</div>
+        <div class="name">Mid-Semester Writing Task</div>
+        <div class="fmt">In-class · pen-and-paper · Week 9</div>
+      </div>
+      <div class="eval-card" style="--c:#D9763C;">
+        <div class="pct">15%</div>
+        <div class="name">Final Group Presentation</div>
+        <div class="fmt">In-class · Weeks 17–18 · groups of 3</div>
+      </div>
+      <div class="eval-card" style="--c:#8FA89B;">
+        <div class="pct">5%</div>
+        <div class="name">Lecturer Discretion</div>
+        <div class="fmt">Participation, engagement, improvement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROUTE ──────────────────────────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="section-eyebrow">18 weeks</p>
+    <h2 class="section-title">The Market Route</h2>
+    <p class="lede">Each week covers one market or topic. Country slides go up on TronClass before class — read ahead if you want a head start. In-class discussion questions are only revealed on the day.</p>
+
+    <div class="leg-label">Setting Out</div>
+    <div class="stalls">
+      <div class="stall c1">
+        <span class="ticket">WEEK 01</span>
+        <h3>Course Introduction</h3>
+        <p>What is an "emerging market"? Where does Taiwan fit? Overview of the semester ahead.</p>
+      </div>
+    </div>
+
+    <div class="leg-label">ASEAN — Weeks 2 to 8</div>
+    <div class="stalls">
+      <div class="stall c2">
+        <span class="ticket">WEEK 02</span>
+        <h3>Indonesia</h3>
+        <p>The world's largest archipelago. 280 million people. Assignment I announced.</p>
+      </div>
+      <div class="stall c3">
+        <span class="ticket">WEEK 03</span>
+        <h3>Malaysia</h3>
+        <p>Multi-ethnic, resource-rich, and a major player in electronics manufacturing.</p>
+      </div>
+      <div class="stall c1">
+        <span class="ticket">WEEK 04</span>
+        <h3>Thailand</h3>
+        <p>One of Asia's Tiger Cub economies. Tourism, credit ratings, and Thailand 4.0.</p>
+      </div>
+      <div class="stall c2">
+        <span class="ticket">WEEK 05</span>
+        <h3>Vietnam</h3>
+        <p>Rising manufacturing hub and a major destination for Taiwanese investment. Assignment I due before class.</p>
+      </div>
+      <div class="stall c3">
+        <span class="ticket">WEEK 06</span>
+        <h3>Singapore & Brunei</h3>
+        <p>Two very different paths to wealth in the same region.</p>
+      </div>
+      <div class="stall c1">
+        <span class="ticket">WEEK 07</span>
+        <h3>Myanmar, Laos & Cambodia</h3>
+        <p>Three mainland ASEAN members — covered side by side for comparison.</p>
+      </div>
+      <div class="stall c2">
+        <span class="ticket">WEEK 08</span>
+        <h3>The Philippines</h3>
+        <p>Young population, high English proficiency, services-driven economy. Timor-Leste briefly introduced.</p>
+      </div>
+    </div>
+
+    <div class="leg-label">Mid-Point</div>
+    <div class="stalls">
+      <div class="stall special">
+        <span class="ticket">WEEK 09</span>
+        <h3>Mid-Semester Writing Task</h3>
+        <p>In-class · pen-and-paper · up to 3 hours. Details given in class closer to the date.</p>
+      </div>
+    </div>
+
+    <div class="leg-label">South Asia — Weeks 10 to 12</div>
+    <div class="stalls">
+      <div class="stall c3">
+        <span class="ticket">WEEK 10</span>
+        <h3>Pakistan & Bangladesh</h3>
+        <p>Similar wages, very different investment outcomes.</p>
+      </div>
+      <div class="stall c1">
+        <span class="ticket">WEEK 11</span>
+        <h3>India + Mid-Term Review</h3>
+        <p>1.4 billion people and a growing role in Taiwan's semiconductor strategy. Writing tasks returned and discussed.</p>
+      </div>
+      <div class="stall c2">
+        <span class="ticket">WEEK 12</span>
+        <h3>Sri Lanka & Emerging Market Risk</h3>
+        <p>The 2022 economic collapse as a live case study. Group Assignment II briefed this week.</p>
+      </div>
+    </div>
+
+    <div class="leg-label">Middle East & Global Literacy — Weeks 13 to 15</div>
+    <div class="stalls">
+      <div class="stall c3">
+        <span class="ticket">WEEK 13</span>
+        <h3>UAE & Saudi Arabia</h3>
+        <p>Dubai as a global logistics hub, Vision 2030, and Taiwan's energy dependency on the Gulf.</p>
+      </div>
+      <div class="stall special">
+        <span class="ticket">WEEK 14</span>
+        <h3>Global Literacy + Presentation Briefing</h3>
+        <p>World religions, trade blocs, EU & Schengen, global governance. Group Assignment II due before class. Final Presentation details given out.</p>
+      </div>
+      <div class="stall c1">
+        <span class="ticket">WEEK 15</span>
+        <h3>Israel & Turkey</h3>
+        <p>The "Start-Up Nation" tech ecosystem versus a large manufacturing economy straddling Europe and Asia.</p>
+      </div>
+    </div>
+
+    <div class="leg-label">Africa & Final Stretch — Weeks 16 to 18</div>
+    <div class="stalls">
+      <div class="stall c2">
+        <span class="ticket">WEEK 16</span>
+        <h3>Africa: Overview</h3>
+        <p>Four anchor countries — South Africa, Nigeria, Kenya, Ethiopia — representing different African development stories.</p>
+      </div>
+      <div class="stall special">
+        <span class="ticket">WEEK 17</span>
+        <h3>Final Presentations I</h3>
+        <p>First half of groups present. 10–12 min + 3 min Q&amp;A.</p>
+      </div>
+      <div class="stall special">
+        <span class="ticket">WEEK 18</span>
+        <h3>Final Presentations II</h3>
+        <p>Second half of groups present. Course wrap-up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ASSESSMENTS ────────────────────────────────────────────────────────── -->
+<section style="background:#F3EEE2;">
+  <div class="wrap">
+    <p class="section-eyebrow">What you'll be doing</p>
+    <h2 class="section-title">Assessments</h2>
+    <p class="lede">Full details for each assessment are given out in class at the appropriate time. What you need to know now is below.</p>
+
+    <div class="assess-grid">
+      <div class="assess-card" style="--c:#5B8C72;">
+        <div class="assess-head">
+          <h3>Individual Assignment I</h3>
+          <span class="assess-pct">10%</span>
+        </div>
+        <div class="assess-meta">Announced Week 2 · Due before Week 5 class</div>
+        <p>A short written assignment submitted individually via TronClass as a Word or PDF file. You'll be given the full brief and country list in Week 2. Start thinking — but wait for the official brief before you start writing.</p>
+        <span class="tba-badge">Brief given in Week 2</span>
+      </div>
+
+      <div class="assess-card" style="--c:#283044;">
+        <div class="assess-head">
+          <h3>Mid-Semester Writing Task</h3>
+          <span class="assess-pct">15%</span>
+        </div>
+        <div class="assess-meta">Week 9 · In-class · Up to 3 hours</div>
+        <p>Written individually in class, by hand. AI tools are fully permitted. English is expected. The question covers ASEAN countries from the first eight weeks — the best preparation is simply engaging with the course material week by week.</p>
+        <span class="tba-badge">Question revealed in Week 9</span>
+      </div>
+
+      <div class="assess-card" style="--c:#D9A24B;">
+        <div class="assess-head">
+          <h3>Group Assignment II</h3>
+          <span class="assess-pct">15%</span>
+        </div>
+        <div class="assess-meta">Briefed Week 12 · Due before Week 14 class</div>
+        <p>A written brief produced in groups of 3. Your group advises a Taiwanese business on entering an overseas market. Full details — including the eligible country list — are given out in Week 12.</p>
+        <span class="tba-badge">Brief given in Week 12</span>
+      </div>
+
+      <div class="assess-card" style="--c:#D9763C;">
+        <div class="assess-head">
+          <h3>Final Group Presentation</h3>
+          <span class="assess-pct">15%</span>
+        </div>
+        <div class="assess-meta">Weeks 17–18 · In-class · Groups of 3</div>
+        <p>Each group presents on a country assigned from a fixed list — a country not covered in the syllabus. 10–12 minutes per group plus Q&amp;A from the class. The country list and full brief are given out in Week 14.</p>
+        <span class="tba-badge">Country list given in Week 14</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RULES ──────────────────────────────────────────────────────────────── -->
+<section>
+  <div class="wrap">
+    <p class="section-eyebrow">Good to know</p>
+    <h2 class="section-title">How this course works</h2>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-icon">📱</div>
+        <div>
+          <h4>Phones at the front during quizzes</h4>
+          <p>Quizzes are pen-and-paper, first 15 minutes of class. Your phone goes face-down at the front of the room. Show up on time.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🤖</div>
+        <div>
+          <h4>AI is allowed — think first</h4>
+          <p>AI tools are permitted for research and writing in most assessments. But the position and reasoning must always be your own. AI can help you research; it can't think for you.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">✍️</div>
+        <div>
+          <h4>English is the language of instruction</h4>
+          <p>This is an EMI course. All assessments are expected in English. Chinese responses in the mid-semester task are accepted but carry a score ceiling.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">📂</div>
+        <div>
+          <h4>Slides go up on TronClass before class</h4>
+          <p>Layers 1 and 2 of each week are available before the session. The in-class discussion question is only revealed on the day — read ahead, but come ready to think.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🌏</div>
+        <div>
+          <h4>Taiwan is the constant reference point</h4>
+          <p>Every country is compared to Taiwan — size, wages, cost of living, credit ratings, trade relationships. You'll leave knowing where Taiwan sits in the world.</p>
+        </div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">💬</div>
+        <div>
+          <h4>There are no "correct" opinions</h4>
+          <p>Most discussion questions and assignments are graded on the quality of your reasoning, not on reaching a particular conclusion. Think clearly, argue coherently.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div><strong>Emerging Markets Analysis</strong> · 國際管理大一 · Tuesdays 09:00–12:00</div>
+    <div class="foot-note">Asst. Prof. Alexis Goh · Office MA309 · by appointment · Changes to this syllabus may be made during the semester.</div>
+  </div>
+</footer>
+
+</body>
+</html>
