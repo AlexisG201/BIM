@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Efficient and Ethical Decision Making — Elective · From Sept 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0C2340; --navy-2:#123055; --teal:#1D9E75; --teal-light:#D0F0E5;
+    --amber:#C9821A; --amber-light:#FCEFD9; --ink:#1A1A1A; --paper:#F7F9F8;
+    --gray:#5A6472; --line:#E3E7E8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.55;}
+  h1,h2,h3{font-family:'Fraunces',serif;margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+
+  header.hero{background:var(--navy);color:#fff;padding:80px 0 64px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-light);margin-bottom:18px;}
+  header.hero h1{font-size:44px;font-weight:600;line-height:1.15;max-width:680px;}
+  header.hero .zh{font-size:20px;color:#9fb3cc;margin-top:10px;font-weight:400;}
+  header.hero .tagline{margin-top:22px;font-size:18px;color:#c7d3e3;max-width:600px;}
+  .tension{display:flex;gap:10px;margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .tension span{padding:6px 12px;border-radius:3px;}
+  .tension .eff{background:var(--amber);color:#3a2400;}
+  .tension .eth{background:var(--teal);color:#062e21;}
+
+  .info-strip{background:var(--navy-2);color:#dbe6f3;padding:22px 0;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .info-strip .wrap{display:flex;flex-wrap:wrap;gap:28px;}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  section h2{font-size:28px;color:var(--navy);margin-bottom:20px;}
+  section h2 .num{color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:16px;margin-right:10px;}
+  p.lead{font-size:17px;color:#333;max-width:720px;}
+
+  .outcomes{list-style:none;padding:0;margin:0;display:grid;gap:12px;}
+  .outcomes li{padding-left:28px;position:relative;font-size:15.5px;}
+  .outcomes li::before{content:"→";position:absolute;left:0;color:var(--teal);font-weight:600;}
+
+  .phase-grid{display:grid;gap:14px;margin-top:10px;}
+  .phase{border:1px solid var(--line);border-left:4px solid var(--teal);background:#fff;padding:18px 20px;border-radius:4px;}
+  .phase.debate{border-left-color:var(--amber);background:var(--amber-light);}
+  .phase .wk{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;}
+  .phase h3{font-size:19px;margin:4px 0 6px;color:var(--navy);}
+  .phase p{margin:0;font-size:14.5px;color:#444;}
+
+  .week-card{border:1px solid var(--line);background:#fff;border-radius:4px;margin-bottom:10px;overflow:hidden;}
+  .week-head{display:flex;align-items:center;gap:16px;padding:14px 18px;cursor:pointer;user-select:none;}
+  .week-head:hover{background:#fafbfb;}
+  .week-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--teal);min-width:52px;font-weight:600;}
+  .week-title{font-size:15.5px;font-weight:500;flex:1;}
+  .week-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--teal-light);color:#0b5d43;padding:3px 8px;border-radius:3px;}
+  .week-badge.exam{background:var(--amber-light);color:#7a4f00;}
+  .chevron{transition:transform .2s;color:var(--gray);}
+  .week-card.open .chevron{transform:rotate(90deg);}
+  .week-body{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 18px;}
+  .week-card.open .week-body{max-height:400px;padding:0 18px 18px;}
+  .week-body p{margin:6px 0;font-size:14px;color:#444;}
+  .week-body .reading{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--gray);margin-top:8px;}
+
+  .assess-table{width:100%;border-collapse:collapse;margin-top:12px;}
+  .assess-table th, .assess-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);font-size:14.5px;}
+  .assess-table th{font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray);}
+  .assess-table td.wt{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--navy);}
+  .assess-table tr.exam td{background:var(--amber-light);}
+
+  .debate-note{background:var(--navy);color:#dbe6f3;border-radius:6px;padding:24px 26px;margin-top:20px;}
+  .debate-note h3{color:#fff;font-size:19px;margin-bottom:10px;}
+  .debate-note p{font-size:14.5px;color:#c7d3e3;margin:0 0 8px;}
+  .debate-note .reveal{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal-light);margin-top:12px;}
+
+  .reading-list{display:grid;gap:10px;margin-top:14px;}
+  .reading-item{display:flex;gap:16px;align-items:baseline;padding:12px 16px;background:#fff;border:1px solid var(--line);border-radius:4px;}
+  .reading-item .wk{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);min-width:40px;font-weight:600;}
+  .reading-item .txt{font-size:14.5px;flex:1;}
+  .reading-item .pg{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gray);}
+  .reading-summary{margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--gray);}
+
+  .controls{display:flex;gap:10px;margin:16px 0;}
+  .controls button{font-family:'IBM Plex Mono',monospace;font-size:12px;border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:4px;cursor:pointer;color:var(--navy);}
+  .controls button:hover{border-color:var(--teal);color:var(--teal);}
+
+  footer{padding:40px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--gray);}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Elective · 3 Credits · 18 Weeks · From September 2026</div>
+    <h1>Efficient and Ethical Decision Making</h1>
+    <div class="zh">高效與倫理決策</div>
+    <p class="tagline">Half your grade is argued live, in class. No take-home essays that write themselves.</p>
+    <div class="tension">
+      <span class="eff">EFFICIENT — fast, AI-assisted</span>
+      <span class="eth">ETHICAL — slow, deliberate</span>
+    </div>
+  </div>
+</header>
+
+<div class="info-strip">
+  <div class="wrap">
+    <div>PLATFORM · TronClass</div>
+    <div>FORMAT · EMI, in-person</div>
+    <div>ASSESSMENT · No take-home exams</div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">01</span>What This Course Is</h2>
+    <p class="lead">This course examines how people and organisations actually make decisions — under cognitive bias, ethical pressure, cultural expectation, and now, AI assistance. AI is a constant presence in the course, but it is never the point: the human decision-maker stays at the centre throughout. Every case, framework, and debate draws on Taiwan-based business and regulatory context.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>What You'll Be Able to Do</h2>
+    <ul class="outcomes">
+      <li>Tell the difference between a good decision process and a good decision outcome — and why that distinction matters</li>
+      <li>Spot and correct for the cognitive biases that quietly wreck individual and group decisions</li>
+      <li>Apply utilitarian, deontological, and virtue-based ethical frameworks to real business dilemmas — including ESG/CSR</li>
+      <li>Evaluate AI-assisted decisions using real frameworks, not gut feeling</li>
+      <li>Explain how and why unethical decisions actually happen inside organisations</li>
+      <li>Navigate cross-cultural decision-making in Taiwanese and international business contexts</li>
+      <li>Build and defend your own personal decision-making framework</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>Course Structure</h2>
+    <div class="phase-grid">
+      <div class="phase">
+        <div class="wk">Weeks 1–4</div>
+        <h3>Foundations of Decision-Making</h3>
+        <p>Human cognition, bias, and the ethical frameworks that underpin every decision that follows.</p>
+      </div>
+      <div class="phase">
+        <div class="wk">Weeks 5–8</div>
+        <h3>AI as Decision Partner</h3>
+        <p>What AI actually does, where it helps, where it introduces risk — with hands-on frameworks you'll build yourself.</p>
+      </div>
+      <div class="phase debate">
+        <div class="wk">Week 9 ★</div>
+        <h3>Mid-Term Debate</h3>
+        <p>Live, in-class, team format. 20% of your final grade. Full details covered in class.</p>
+      </div>
+      <div class="phase">
+        <div class="wk">Weeks 10–13</div>
+        <h3>Ethics, Accountability &amp; Governance</h3>
+        <p>Who's responsible when AI gets it wrong. Individual Case Brief assigned Week 11, due Week 13.</p>
+      </div>
+      <div class="phase">
+        <div class="wk">Weeks 14–17</div>
+        <h3>Applied Decision-Making</h3>
+        <p>Cross-cultural complexity, crisis decisions, workforce ethics, and your own decision framework.</p>
+      </div>
+      <div class="phase debate">
+        <div class="wk">Week 18 ★</div>
+        <h3>Final-Term Debate</h3>
+        <p>Live, in-class, team format, covering the full course. 30% of your final grade. Full details covered in class.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">04</span>Weekly Overview</h2>
+    <div class="controls">
+      <button onclick="toggleAll(true)">Expand all</button>
+      <button onclick="toggleAll(false)">Collapse all</button>
+    </div>
+    <div id="weeks"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">05</span>Assessment</h2>
+    <table class="assess-table">
+      <tr><th>Component</th><th>Weight</th><th>Format</th></tr>
+      <tr><td>Participation &amp; In-class Activities</td><td class="wt">25%</td><td>Every class; quality over quantity</td></tr>
+      <tr><td>Reflection Journal</td><td class="wt">15%</td><td>&gt;500 words, submitted 3× during the semester</td></tr>
+      <tr><td>Individual Case Brief</td><td class="wt">10%</td><td>Assigned Wk 11, due Wk 13 via TronClass, &gt;800 words</td></tr>
+      <tr class="exam"><td>Mid-Term Debate</td><td class="wt">20%</td><td>Week 9 — live in-class team debate</td></tr>
+      <tr class="exam"><td>Final-Term Debate</td><td class="wt">30%</td><td>Week 18 — live in-class team debate</td></tr>
+    </table>
+
+    <div class="debate-note">
+      <h3>About the Debates</h3>
+      <p>Both the Mid-Term and Final-Term exams are live, in-class team debates — not take-home essays. You'll be placed on a team, given a preparation window, and expected to defend your position under questioning.</p>
+      <p>Fluency in English or Chinese is weighted low — content and reasoning matter far more than delivery polish. AI tools are permitted during the preparation window.</p>
+      <div class="reveal">Full format, team structure, and scoring rubric are covered in class before each debate — not published here.</div>
+    </div>
+  </div>
+</section>
+
+<section style="border-bottom:none;">
+  <div class="wrap">
+    <h2><span class="num">06</span>Reading List</h2>
+    <p class="lead">Ten assigned readings across the semester — kept deliberately short. Most weeks have none; the ones that do are listed below.</p>
+    <div class="reading-list" id="readings"></div>
+    <div class="reading-summary">10 texts · ≈119 pages total across 18 weeks</div>
+  </div>
+</section>
+
+<footer>
+  Efficient and Ethical Decision Making &nbsp;·&nbsp; 3 Credits &nbsp;·&nbsp; 18 Weeks &nbsp;·&nbsp; Elective
+</footer>
+
+<script>
+const weeks = [
+  {n:1, title:"What Is a \u201cGood\u201d Decision?", badge:"", concepts:"Outcomes vs. process — why the distinction matters for accountability.", reading:"Kahneman, Thinking, Fast and Slow — Intro + Ch. 1 (\u224815pp)"},
+  {n:2, title:"Cognitive Biases and Mental Shortcuts", badge:"", concepts:"System 1 / System 2. Anchoring, confirmation bias, groupthink. Taiwan case: herd behaviour in local investing.", reading:"No reading — live in-class exercise"},
+  {n:3, title:"Ethical Frameworks as Decision Lenses", badge:"", concepts:"Utilitarianism, deontology, virtue ethics as practical tools — plus how they show up in ESG/CSR.", reading:"Sandel, Justice — Ch. 2 + Ch. 5 (\u224818pp)"},
+  {n:4, title:"Organizational Decision-Making", badge:"", concepts:"How companies actually decide. Taiwan-specific: guanxi, hierarchy, why \u201cyes\u201d doesn\u2019t always mean yes.", reading:"Meyer, The Culture Map — Ch. 1 (\u224818pp)"},
+  {n:5, title:"Midpoint Reflection — Decision Design Workshop", badge:"", concepts:"A live group exercise building a structured decision model from scratch.", reading:"No reading — in-class workshop"},
+  {n:6, title:"What AI Actually Does (And Doesn\u2019t Do)", badge:"", concepts:"Demystifying LLMs, recommendation engines, and predictive analytics — correcting common misconceptions.", reading:"O\u2019Callaghan, Decision Intelligence — Ch. 1, pp. 8\u201315 (\u22488pp)"},
+  {n:7, title:"AI as Decision Support: The Upside", badge:"", concepts:"Where AI genuinely helps — fraud detection, credit scoring, logistics, medical triage. Hands-on technique building.", reading:"No reading — live in-class build"},
+  {n:8, title:"Algorithmic Bias and Fairness", badge:"", concepts:"How AI inherits and amplifies bias. Taiwan angle: demographic proxies in credit and hiring algorithms.", reading:"O\u2019Neil, Weapons of Math Destruction — Ch. 5 (\u224820pp)"},
+  {n:9, title:"Mid-Term Debate", badge:"exam", concepts:"Live, in-class, team format. Motion drawn from Weeks 1\u20138. Full format explained in class.", reading:"Review only — no new reading"},
+  {n:10, title:"AI Accountability — \u201cWho\u2019s Responsible?\u201d", badge:"", concepts:"When AI gets it wrong: developer, deployer, or user? Taiwan\u2019s PDPA vs. the EU AI Act.", reading:"Dra\u0161\u010dek & Andol\u0161ek — Ch. 4, pp. 107\u2013108 (\u22482pp)"},
+  {n:11, title:"Automation, Jobs, and Workforce Decisions", badge:"", concepts:"The ethics of replacing workers with AI. Taiwan manufacturing and supply-chain automation.", reading:"Dra\u0161\u010dek & Andol\u0161ek — Ch. 4, pp. 107, 115 (\u22482pp)"},
+  {n:12, title:"Decision-Making Under Uncertainty", badge:"", concepts:"Scenario planning and expected value. Case: Taiwan semiconductor firms and US\u2013China trade tension.", reading:"Pratt & Malcolm — Ch. 6, \u201cUncertainty and Risk\u201d (\u224810pp)"},
+  {n:13, title:"Cross-Cultural Decision Making", badge:"", concepts:"High-context vs. low-context. Confucian values vs. Western individualist ethics — where they conflict.", reading:"Dra\u0161\u010dek & Andol\u0161ek — Ch. 6, pp. 177\u2013184 (\u22488pp)"},
+  {n:14, title:"AI in HR and People Decisions", badge:"", concepts:"AI-assisted hiring, performance monitoring, surveillance software. Where\u2019s the ethical line?", reading:"No reading — in-class video/case"},
+  {n:15, title:"Crisis Decision-Making", badge:"", concepts:"Speed vs. deliberation under pressure. Taiwan cases in governance and crisis response.", reading:"No reading — in-class video/case"},
+  {n:16, title:"Building Your Personal Decision Framework", badge:"", concepts:"Draft your own 1-page decision framework: values, process, red flags. Peer review.", reading:"No reading — in-class activity"},
+  {n:17, title:"Course Synthesis & Final Debate Preparation", badge:"", concepts:"Teams formed, motion themes previewed, format Q&A for the Final-Term Debate.", reading:"Sandel, Justice — Ch. 10 (\u224818pp)"},
+  {n:18, title:"Final-Term Debate", badge:"exam", concepts:"Live, in-class, team format. Full-course scope, higher difficulty. Full format explained in class.", reading:"No new reading"},
+];
+
+const readingList = [
+  {wk:1, txt:"Kahneman — Thinking, Fast and Slow, Intro + Ch. 1", pg:"\u224815pp"},
+  {wk:3, txt:"Sandel — Justice, Ch. 2 + Ch. 5", pg:"\u224818pp"},
+  {wk:4, txt:"Meyer — The Culture Map, Ch. 1", pg:"\u224818pp"},
+  {wk:6, txt:"O\u2019Callaghan — Decision Intelligence, Ch. 1 (pp. 8\u201315)", pg:"\u22488pp"},
+  {wk:8, txt:"O\u2019Neil — Weapons of Math Destruction, Ch. 5", pg:"\u224820pp"},
+  {wk:10, txt:"Dra\u0161\u010dek & Andol\u0161ek — Ethical Decision-Making in Management, Ch. 4 (pp. 107\u2013108)", pg:"\u22482pp"},
+  {wk:11, txt:"Dra\u0161\u010dek & Andol\u0161ek — Ch. 4 (pp. 107, 115)", pg:"\u22482pp"},
+  {wk:12, txt:"Pratt & Malcolm — The Decision Intelligence Handbook, Ch. 6", pg:"\u224810pp"},
+  {wk:13, txt:"Dra\u0161\u010dek & Andol\u0161ek — Ch. 6 (pp. 177\u2013184)", pg:"\u22488pp"},
+  {wk:17, txt:"Sandel — Justice, Ch. 10", pg:"\u224818pp"},
+];
+
+const weeksEl = document.getElementById('weeks');
+weeks.forEach(w => {
+  const card = document.createElement('div');
+  card.className = 'week-card';
+  card.innerHTML = `
+    <div class="week-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="week-num">WK ${w.n}</div>
+      <div class="week-title">${w.title}</div>
+      ${w.badge ? `<div class="week-badge exam">DEBATE</div>` : ''}
+      <div class="chevron">›</div>
+    </div>
+    <div class="week-body">
+      <p>${w.concepts}</p>
+      <p class="reading">${w.reading}</p>
+    </div>`;
+  weeksEl.appendChild(card);
+});
+
+const readingsEl = document.getElementById('readings');
+readingList.forEach(r => {
+  const item = document.createElement('div');
+  item.className = 'reading-item';
+  item.innerHTML = `<div class="wk">WK ${r.wk}</div><div class="txt">${r.txt}</div><div class="pg">${r.pg}</div>`;
+  readingsEl.appendChild(item);
+});
+
+function toggleAll(open){
+  document.querySelectorAll('.week-card').forEach(c => open ? c.classList.add('open') : c.classList.remove('open'));
+}
+</script>
+</body>
+</html>
