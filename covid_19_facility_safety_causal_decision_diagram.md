@@ -3,7 +3,7 @@
 This Causal Decision Diagram (CDD) replicates the structure provided in the example image, illustrating the causal chains for deciding on opening a building and keeping people safe from a pandemic.
 
 ```mermaid
-graph TD
+graph LR
 
 &#x20;   classDef lever fill:#ffebcd,stroke:#333,stroke-width:2px;
 
@@ -21,15 +21,15 @@ graph TD
 
 &#x20;       L1\["Occupancy schedule(s)"]:::lever
 
-&#x20;       L2\["Investment in facility modification"]:::lever
+&#x20;       L2\["Investment in<br>facility modification"]:::lever
 
 &#x20;       L3\["Investment in HVAC"]:::lever
 
 &#x20;       L4\["Investment in distancing"]:::lever
 
-&#x20;       L5\["Investment in mask compliance"]:::lever
+&#x20;       L5\["Investment in<br>mask compliance"]:::lever
 
-&#x20;       L6\["Investment in safety marketing"]:::lever
+&#x20;       L6\["Investment in<br>safety marketing"]:::lever
 
 &#x20;       L7\["Pricing"]:::lever
 
@@ -45,7 +45,7 @@ graph TD
 
 &#x20;       E2\["Local infection rate"]:::external
 
-&#x20;       E3\["Demographics of facility population(s)"]:::external
+&#x20;       E3\["Demographics of<br>facility population(s)"]:::external
 
 &#x20;       E4\["Virus infection behavior"]:::external
 
@@ -65,21 +65,21 @@ graph TD
 
 &#x20;       I2\["Human movement patterns"]:::intermediate
 
-&#x20;       I3\["Movement of susceptible people"]:::intermediate
+&#x20;       I3\["Movement of<br>susceptible people"]:::intermediate
 
-&#x20;       I4\["Movement of infectious person(s)"]:::intermediate
+&#x20;       I4\["Movement of<br>infectious person(s)"]:::intermediate
 
-&#x20;       I5\["Facility virus exposure patterns (including hot spots)"]:::intermediate
+&#x20;       I5\["Facility virus exposure patterns<br>(including hot spots)"]:::intermediate
 
-&#x20;       I6\["Social distancing compliance rate"]:::intermediate
+&#x20;       I6\["Social distancing<br>compliance rate"]:::intermediate
 
 &#x20;       I7\["Mask compliance rate"]:::intermediate
 
 &#x20;       I8\["Virus movement patterns"]:::intermediate
 
-&#x20;       I9\["Demand for our products/services"]:::intermediate
+&#x20;       I9\["Demand for our<br>products/services"]:::intermediate
 
-&#x20;       I10\["Awareness of our commitment to Covid-19 safety"]:::intermediate
+&#x20;       I10\["Awareness of our commitment<br>to Covid-19 safety"]:::intermediate
 
 &#x20;       I11\["Virus shed rate"]:::intermediate
 
@@ -95,9 +95,9 @@ graph TD
 
 &#x20;       direction TB
 
-&#x20;       O1\["Future illnesses (goal: fewer)"]:::outcome
+&#x20;       O1\["Future illnesses<br>(goal: fewer)"]:::outcome
 
-&#x20;       O2\["Future deaths (goal: fewer)"]:::outcome
+&#x20;       O2\["Future deaths<br>(goal: fewer)"]:::outcome
 
 &#x20;       O3\["Profitability"]:::outcome
 
